@@ -8,3 +8,5 @@
 
 
 # Project idea
+English learning platform for non-native speakers
+/* Details will be discussed in furture research */
