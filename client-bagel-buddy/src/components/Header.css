@@ -1,0 +1,23 @@
+.header-section {
+    background: #FFF;
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.25);
+    color: var(--main-text-color);
+    padding: 16px 40px;
+    display: flex;
+}
+
+.header-brand {
+    display: inherit;
+}
+
+.header-brand > p {
+    font-size: 24px;
+    font-weight: 600;
+    margin: auto;
+}
+
+.header-logo {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+}
