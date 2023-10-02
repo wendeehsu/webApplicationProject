@@ -1,7 +1,10 @@
+p {
+    color: var(--main-text-color);
+}
+
 .header-section {
     background: #FFF;
     box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.25);
-    color: var(--main-text-color);
     padding: 16px 40px;
     display: flex;
 }
@@ -10,14 +13,36 @@
     display: inherit;
 }
 
+.header-brand:hover {
+    cursor: pointer;
+}
+
 .header-brand > p {
     font-size: 24px;
     font-weight: 600;
-    margin: auto;
+    margin: auto 84px auto auto;
 }
 
 .header-logo {
     width: 48px;
     height: 48px;
     margin-right: 12px;
+}
+
+.header-nav {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.header-user {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-left: auto;
 }
