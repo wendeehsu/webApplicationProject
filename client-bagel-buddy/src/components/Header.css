@@ -38,6 +38,10 @@ p {
     font-weight: 500;
 }
 
+.header-nav:hover {
+    cursor: pointer;
+}
+
 .header-user {
     height: 48px;
     width: 48px;

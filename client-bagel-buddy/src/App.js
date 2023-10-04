@@ -1,10 +1,21 @@
 import React from 'react';
 import Header from './components/Header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import StudentHome from './containers/student/home/index';
+import StudentTeacherLsit from './containers/student/teacherList';
+import StudentLessons from './containers/student/lesson/index';
 
 function App() {
   return (
     <>
-      <Header />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route exact path="/teacherList" element={<StudentTeacherLsit/>} />
+          <Route exact path="/myLessons" element={<StudentLessons/>} />
+          <Route path="/" element={<StudentHome/>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
