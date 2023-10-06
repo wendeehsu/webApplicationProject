@@ -1,7 +1,9 @@
 # webApplicationProject
 Course project for the 2023 Fall web application course in UT Austin
+* frontend: client-bagel-buddy
+* backend: TBD
 
-# Setup
+# Project Setup
 1. In your local terminal, `cd` to a folder
 1. run this command
 ```
