@@ -1,0 +1,16 @@
+.card {
+    border: 1px solid var(--card-border-color);
+    padding: 16px;
+    width: calc(25% - 50px);
+}
+
+.card-img {
+    height: 225px;
+    width: 100%;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
