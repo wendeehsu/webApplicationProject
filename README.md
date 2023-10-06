@@ -50,5 +50,3 @@ git push
 10. click `Create pull request` -> `Create pull request`
 
 11. `Merge pull request` (Ask for someone to double check your work if you're not sure.)
-
-12. test
