@@ -34,12 +34,6 @@ function Header() {
                     </p>
                 ))
             }
-            {/* <p className='header-nav'>
-                Teachers
-            </p>
-            <p className='header-nav'>
-                Lessons
-            </p> */}
             <div className='header-user' style={{ backgroundImage: `url(${user_img_url})` }} />
         </div>
     )

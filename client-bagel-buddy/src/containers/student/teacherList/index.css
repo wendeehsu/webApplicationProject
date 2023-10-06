@@ -1,0 +1,6 @@
+.card-horizontal-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 20px;
+    margin: 16px auto;
+}
