@@ -7,11 +7,14 @@ This is the frontend side of the platform.
 node --version
 ```
 if it shows the version number, then you're good to go!
+
 2. Assuming you already `git pull` this project, please `cd` to this client directory. In your terminal, the current file path should be under `/client-bagel-buddy`
+
 3. Install required libraries. In the terminal, type in
 ```
 npm install
 ```
+
 4. After installation finishes, we can now run the web :D
 
 ## Run the web
