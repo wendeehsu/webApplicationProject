@@ -46,3 +46,7 @@ git push
 ```
 
 9. On github, create a [pull request](https://github.com/wendeehsu/webapp/pulls). In `compare`, choose your branch
+
+10. click `Create pull request` -> `Create pull request`
+
+11. `Merge pull request` (Ask for someone to double check your work if you're not sure.)
