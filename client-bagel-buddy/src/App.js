@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import StudentHome from './containers/student/home/index';
+import StudentHome from './containers/student/home';
 import StudentTeacherLsit from './containers/student/teacherList';
-import StudentLessons from './containers/student/lesson/index';
+import StudentLessons from './containers/student/lesson';
 
 function App() {
   return (
