@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './teacherList.css';
 import Card from '../../../components/card';
 
 function TeacherListPage() {
