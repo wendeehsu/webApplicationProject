@@ -1,0 +1,9 @@
+.home-point-earn-section {
+    /* TODO: add correct background-color in index.css */
+    background-color: var(--card-border-color);
+    display: flex;
+}
+
+.home-text-section {
+    flex: 2;
+}
