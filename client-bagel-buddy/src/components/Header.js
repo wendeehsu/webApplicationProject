@@ -29,6 +29,7 @@ function Header() {
                 navList.map((item) => (
                     <p className='header-nav'
                         onClick={() => navigate(item.path)}
+                        key={item.text}
                     >
                         {item.text}
                     </p>
