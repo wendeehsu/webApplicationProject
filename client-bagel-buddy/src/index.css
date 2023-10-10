@@ -16,6 +16,7 @@ code {
 :root {
   --main-text-color: #3F1E07;
   --card-border-color: #DDD;
+  --accent-color: #fff0e1;
 }
 
 h1 {

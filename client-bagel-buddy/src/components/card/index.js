@@ -6,7 +6,7 @@ function Card() {
     return (
         <div className='card'>
             <div className='card-img'
-                style={{ backgroundImage: `url(${user_img_url})` }}/>
+                style={{ backgroundImage: `url(${user_img_url})`}}/>
             <h2>Alysa Yang</h2>
             <p>U.S.A</p>
             <div className=''>
@@ -18,9 +18,9 @@ function Card() {
             </div>
             <div className='skill-list'>
                 {
-                    ["speaking", "grammer"].map((skill) => (
+                    ["speaking", "grammar"].map((skill) => (
                         <div className='skill-chip'>
-                            <p>{skill}</p>
+                            <p className='skillBox'>{skill}</p>
                         </div>
                     ))
                 }
