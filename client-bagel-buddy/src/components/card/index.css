@@ -1,16 +1,38 @@
 .card {
     border: 1px solid var(--card-border-color);
+    border-radius: 15px;
     padding: 16px;
     width: calc(25% - 50px);
+    fill: white;
+    box-shadow: 2px 2px 3px var(--card-border-color);;
 }
 
 .card-img {
     height: 225px;
     width: 100%;
+    border-radius: 10px;
 }
 
 .skill-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: 10px;
+}
+
+.skill-chip {
+    border: 1px solid #fff0e1;
+    border-radius: 10px;
+    padding: 10px;
+    height: auto;
+    background-color: #fff0e1
+}
+
+.skillBox {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.star {
+    size: 200px;
 }
