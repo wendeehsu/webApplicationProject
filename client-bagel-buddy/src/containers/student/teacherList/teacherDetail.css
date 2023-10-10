@@ -1,0 +1,30 @@
+.back-btn {
+    display: flex;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+}
+
+.back-btn > h2 {
+    margin: auto 0px;
+}
+
+.back-arrow {
+    margin-right: 8px;
+    width: 24px;
+}
+
+.teacher-detail-lower-section {
+    display: flex;
+}
+
+.teacher-detail-lower-section > div {
+    flex: 1;
+}
+
+.book-section {
+    border: 1px solid var(--card-border-color);
+    border-radius: 24px;
+    padding: 36px 40px;
+}
