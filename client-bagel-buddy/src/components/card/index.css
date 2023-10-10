@@ -7,6 +7,10 @@
     box-shadow: 2px 2px 3px var(--card-border-color);;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .card-img {
     height: 225px;
     width: 100%;
