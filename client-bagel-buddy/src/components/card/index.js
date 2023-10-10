@@ -6,7 +6,7 @@ function Card() {
     return (
         <div className='card'>
             <div className='card-img'
-                style={{ backgroundImage: `url(${user_img_url})`, backgroundSize: 'cover'}}/>
+                style={{ backgroundImage: `url(${user_img_url})`}}/>
             <h2>Alysa Yang</h2>
             <p>U.S.A</p>
             <div className=''>
