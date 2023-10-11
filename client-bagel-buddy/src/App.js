@@ -3,7 +3,7 @@ import Header from './components/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StudentHome from './containers/student/home/home';
 import StudentTeacherList from './containers/student/teacherList/teacherList';
-import StudentLessons from './containers/student/lesson/lesson';
+import StudentLessons from './containers/student/lesson';
 import StudentTeacherPage from './containers/student/teacherList/teacherDetail';
 
 function App() {

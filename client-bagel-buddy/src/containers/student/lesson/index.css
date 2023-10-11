@@ -1,0 +1,20 @@
+.lesson-tab-header {
+    display: flex;
+    column-gap: 32px;
+}
+
+.lesson-tab-item:hover {
+    cursor: pointer;
+}
+
+.lesson-tab-item {
+    font-weight: 500;
+}
+
+.active-tab {
+    border-bottom: 2px solid var(--main-text-color);
+}
+
+.active-tab > h2 {
+    font-weight: 700;
+}
