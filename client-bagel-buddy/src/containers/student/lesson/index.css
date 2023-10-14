@@ -25,7 +25,7 @@
 
 .lesson-row {
     display: flex;
-    margin-bottom: 28px;
+    margin-bottom: 48px;
 }
 
 .profile-img {
@@ -41,18 +41,35 @@
     min-height: 225px;
 }
 
-.lesson-content > p {
-    color: var(--gray);
+.content-title {
+    display: flex;
+}
+
+.title-text > h2 {
+    margin: 0px;
+}
+
+.title-text > p {
     font-size: 16px;
+    color: var(--gray);
+    margin: 8px 0px 0px 0px;
+}
+
+.chip {
+    color: var(--main-text-color);
+    background-color: var(--accent-color);
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 48px;
+    margin-left: auto;
+    height: fit-content;
 }
 
 .content-request {
     margin-top: 24px;
     margin-bottom: 24px;
-}
-
-.lesson-content > h2 {
-    margin: 0px;
+    color: var(--gray);
+    font-size: 16px;
 }
 
 .button-section > button {
