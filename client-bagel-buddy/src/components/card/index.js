@@ -1,13 +1,16 @@
 import React from 'react';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+import { MainButton } from '../button';
 
 function Card({
     id,
     name,
     nationality,
     star,
-    skills
+    skills = [],
+    timeslot = null,
+    meetLink = null
 }) {
     const navigate = useNavigate();
     const user_img_url = "../../images/user" + (1 + id % 4) + ".png";
@@ -15,7 +18,7 @@ function Card({
     return (
         <div key={id}
             className='card'
-            onClick={() => navigate('/teacherDetail/' + id)}>
+            onClick={() => timeslot == null ? navigate('/teacherDetail/' + id): undefined}>
             <div className='card-img'
                 style={{ backgroundImage: `url(${user_img_url})` }} />
             <h2>{name}</h2>
@@ -31,17 +34,31 @@ function Card({
                         ))
                 }
             </div>
-            <div className='skill-list'>
-                {
-                    ["writing", "reading" ,"speaking", "grammar"]
-                    .filter((skill, index) => skills.includes(index))
-                    .map((skill, index) => (
-                        <div className='skill-chip' key={`skill-${index}`}>
-                            <p className='skillBox'>{skill}</p>
+            {
+                (timeslot == null) ? (
+                    <div className='skill-list'>
+                        {
+                            ["writing", "reading" ,"speaking", "grammar"]
+                            .filter((skill, index) => skills.includes(index))
+                            .map((skill, index) => (
+                                <div className='skill-chip' key={`skill-${index}`}>
+                                    <p className='skillBox'>{skill}</p>
+                                </div>
+                            ))
+                        }
+                    </div>
+                ) : (
+                    <>
+                        <div className='chip'>
+                            {timeslot}
                         </div>
-                    ))
-                }
-            </div>
+                        <MainButton
+                            text="Join Meet"
+                            onClick={() => window.open(meetLink)}
+                        />
+                    </>
+                )
+            }
         </div>
     )
 }

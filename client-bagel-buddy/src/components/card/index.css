@@ -4,7 +4,7 @@
     padding: 16px;
     width: calc(25% - 50px);
     fill: white;
-    box-shadow: 2px 2px 3px var(--card-border-color);;
+    box-shadow: 0px 4px 8px 0px var(--card-border-color);;
 }
 
 .card:hover {
@@ -36,4 +36,13 @@
 .skillBox {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.chip {
+    color: var(--main-text-color);
+    background-color: var(--accent-color);
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 48px;
+    margin: 12px 0px;
 }
