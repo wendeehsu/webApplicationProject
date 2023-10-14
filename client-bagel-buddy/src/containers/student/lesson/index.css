@@ -18,3 +18,43 @@
 .active-tab > h2 {
     font-weight: 700;
 }
+
+.lesson-page {
+    margin-top: 56px;
+}
+
+.lesson-row {
+    display: flex;
+    margin-bottom: 28px;
+}
+
+.profile-img {
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    object-fit: contain;
+    margin-right: 28px;
+    min-width: 286px;
+}
+
+.lesson-content {
+    min-height: 225px;
+}
+
+.lesson-content > p {
+    color: var(--gray);
+    font-size: 16px;
+}
+
+.content-request {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.lesson-content > h2 {
+    margin: 0px;
+}
+
+.button-section > button {
+    margin-right: 24px;
+}

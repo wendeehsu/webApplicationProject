@@ -55,7 +55,7 @@ function LessonPage() {
                         </div>)
                 }
             </div>
-            <div>
+            <div className='lesson-page'>
                 { displayActiveTab() }
             </div>
         </div>
