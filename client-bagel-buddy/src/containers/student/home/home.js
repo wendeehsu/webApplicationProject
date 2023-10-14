@@ -1,5 +1,6 @@
 import React from 'react';
 import './home.css';
+import Card from '../../../components/card';
 
 function HomePage() {
     return (
@@ -17,10 +18,33 @@ function HomePage() {
             <h1>
                 Upcoming Lessons
             </h1>
+            <div className='card-row'>
+                { [1,2,3].map((i) => (
+                    <Card
+                        id={i}
+                        name="Alysa Yang"
+                        nationality="U.S.A"
+                        star={4}
+                        timeslot="Sep 20, Wed, 20:00 - 20:30"
+                        meetLink="https://meet.google.com/zzw-cqtw-nkt"
+                    />))
+                }
+            </div>
+            
             <h1>
                 Recommended Teachers
             </h1>
-            
+            <div className='card-row'>
+                { [1,2,3].map((i) => (
+                    <Card
+                        id={i}
+                        name="Alysa Yang"
+                        nationality="U.S.A"
+                        star={4}
+                        skills={[0,1]}
+                    />))
+                }
+            </div>
         </div>
     )
 }

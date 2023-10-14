@@ -9,7 +9,7 @@ function TeacherDetailPage() {
 
     return (
         <div className='page'>
-            <div className='back-btn' onClick={() => navigate("/teacherList")}>
+            <div className='back-btn' onClick={() => navigate(-1)}>
                 <img
                     className='back-arrow'
                     src="../../images/arrow-left.png"
