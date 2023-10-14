@@ -42,8 +42,15 @@ function UpcomingLessonPage() {
                         <div className='profile-img'
                             style={{ backgroundImage: `url(${lesson.imgUrl})` }} />
                         <div className='lesson-content'>
-                            <h2>{lesson.name}</h2>
-                            <p>{lesson.nationality}</p>
+                            <div className='content-title'>
+                                <div className='title-text'>
+                                    <h2>{lesson.name}</h2>
+                                    <p>{lesson.nationality}</p>
+                                </div>
+                                <div className='chip'>
+                                    {lesson.timeSlot}
+                                </div>
+                            </div>
                             <p className='content-request'>
                                 {lesson.content}
                             </p>
