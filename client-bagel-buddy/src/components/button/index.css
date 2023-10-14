@@ -1,0 +1,22 @@
+.btn {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 12px;
+}
+
+.main {
+    color: white;
+    background-color: var(--primary);
+    border: 0px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.secondary {
+    color: var(--primary);
+    background-color: white;
+    border: 1px solid var(--primary);
+}
