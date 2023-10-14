@@ -6,7 +6,6 @@ import CanceledLessonPage from './canceled/canceled';
 import HistoryLessonPage from './history/history';
 
 function LessonPage() {
-    const studentId = 1;
     const tabs = [{
         name: 'Upcoming',
         link: 'upcoming'
@@ -44,10 +43,10 @@ function LessonPage() {
                 {
                     tabs.map((tab) => 
                         <div
-                            className={tab.name == activeTab ? 'active-tab': ''}
+                            key={tab.name}
+                            className={tab.name === activeTab ? 'active-tab': ''}
                         >
                             <h2
-                                key={tab.name}
                                 className='lesson-tab-item'
                                 onClick={() => setActiveTab(tab.name)}
                             >
