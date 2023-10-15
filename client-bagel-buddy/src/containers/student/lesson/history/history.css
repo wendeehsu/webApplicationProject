@@ -1,0 +1,14 @@
+.star-section {
+    display: flex;
+    column-gap: 17px;
+}
+
+.star-section > img {
+    width: 24px;
+    height: 24px;
+    margin: auto 0px;
+}
+
+.star-section > button {
+    margin-left: 15px;
+}
