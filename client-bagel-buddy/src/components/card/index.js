@@ -22,7 +22,7 @@ function Card({
             <div className='card-img'
                 style={{ backgroundImage: `url(${user_img_url})` }} />
             <h2>{name}</h2>
-            <p>{nationality}</p>
+            <p className= 'teacher-language'>{nationality}</p>                
             <div className=''>
                 {
                     Array.from({length:star})
