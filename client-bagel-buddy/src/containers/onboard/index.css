@@ -1,0 +1,67 @@
+.onboard-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.onboard-header {
+    display: flex;
+    column-gap: 32px;
+}
+
+.onboard-nav {
+    width: 100px;
+    text-align: center;
+}
+
+.onboard-nav > h2 {
+    font-weight: 500;
+}
+
+.active {
+    border-bottom: 2px solid var(--main-text-color);
+}
+
+.active > h2 {
+    font-weight: 700;
+}
+
+.onboard-nav:nth-child(1) {
+    margin-left: auto;
+}
+
+.onboard-nav:nth-child(2) {
+    margin-right: auto;
+}
+
+.onboard-nav:hover {
+    cursor: pointer;
+}
+
+.onboard-content {
+    margin-top: 16px;
+}
+
+.onboard-content > p {
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 32px;
+}
+
+.input-box {
+    border-radius: 12px;
+    border: 1px solid var(--gray);
+    width: 400px;
+    height: 48px;
+}
+
+.signup-button {
+    display: flex;
+}
+
+.signup-button > button {
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+}

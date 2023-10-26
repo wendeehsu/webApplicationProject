@@ -9,6 +9,10 @@ p {
     display: flex;
 }
 
+.hide {
+    display: none;
+}
+
 .header-brand {
     display: inherit;
 }
