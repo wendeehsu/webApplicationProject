@@ -27,8 +27,9 @@
 
 .skill-chip {
     border: 1px solid var(--accent-color);
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 10px;
+    padding-bottom: 12px;
     height: auto;
     background-color: var(--accent-color);
 }
@@ -45,4 +46,17 @@
     font-size: 16px;
     border-radius: 48px;
     margin: 12px 0px;
+}
+.teacher-language {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 200%;
+    color: #717171;
+}
+
+.star {
+   width: 28px;
+   height: 24px;
+   padding: 2px 2.217px 2.8px 5px;
 }
