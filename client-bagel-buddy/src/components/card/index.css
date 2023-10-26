@@ -28,15 +28,17 @@
 .skillBox {
     margin-top: auto;
     margin-bottom: auto;
+    line-height: 200%;
 }
 
-.chip {
+.skill-chip {
     color: var(--main-text-color);
     background-color: var(--accent-color);
     padding: 4px 12px;
     font-size: 16px;
     border-radius: 48px;
     margin-top: 10px;
+    width: fit-content;
 }
 
 .teacher-language {
