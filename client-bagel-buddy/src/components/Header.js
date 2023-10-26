@@ -1,10 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import './Header.css';
 
 function Header() {
     const user_img_url = "../../images/user1.png";
     const navigate = useNavigate();
+    const location = useLocation();
 
     const navList = [{
         text: 'Teachers',
@@ -15,7 +17,9 @@ function Header() {
     }];
 
     return (
-        <div className="header-section">
+
+
+        <div className={location.pathname == "/login" ? 'hide' : 'header-section'}>
             <div className='header-brand'
                 onClick={() => navigate('/')}>
                 <img
@@ -37,6 +41,7 @@ function Header() {
             }
             <div className='header-user' style={{ backgroundImage: `url(${user_img_url})` }} />
         </div>
+
     )
 }
 

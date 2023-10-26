@@ -7,7 +7,7 @@ Course project for the 2023 Fall web application course in UT Austin
 1. In your local terminal, `cd` to a folder
 1. run this command
 ```
-git clone https://github.com/wendeehsu/webApplicationProject.git
+git clone https://github.com/wendeehsu/webapp.git
 ```
 
 # How to co-work?
