@@ -41,7 +41,7 @@ function Card({
                             ["writing", "reading" ,"speaking", "grammar"]
                             .filter((skill, index) => skills.includes(index))
                             .map((skill, index) => (
-                                <div className='skill-chip' key={`skill-${index}`}>
+                                <div className='chip' key={`skill-${index}`}>
                                     <p className='skillBox'>{skill}</p>
                                 </div>
                             ))

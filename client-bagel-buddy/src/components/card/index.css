@@ -21,17 +21,8 @@
 .skill-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    column-gap: 4px;
     margin-top: 10px;
-}
-
-.skill-chip {
-    border: 1px solid var(--accent-color);
-    border-radius: 20px;
-    padding: 10px;
-    padding-bottom: 12px;
-    height: auto;
-    background-color: var(--accent-color);
 }
 
 .skillBox {
@@ -42,17 +33,17 @@
 .chip {
     color: var(--main-text-color);
     background-color: var(--accent-color);
-    padding: 8px 20px;
+    padding: 4px 12px;
     font-size: 16px;
     border-radius: 48px;
-    margin: 12px 0px;
+    margin-top: 10px;
 }
+
 .teacher-language {
     font-size: 16px;
-    font-style: normal;
     font-weight: 500;
     line-height: 200%;
-    color: #717171;
+    color: var(--gray);
 }
 
 .star {
