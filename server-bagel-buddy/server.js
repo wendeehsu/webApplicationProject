@@ -1,12 +1,24 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const routes = require("./routes/index");
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
 
-app.use(express.static(path.join(__dirname,"..","client-bagel-buddy", "build")))
+const db_uri = "mongodb+srv://user1:user1@bagel.ga3mauc.mongodb.net/BagelBuddy?retryWrites=true&w=majority";
+const PORT = 8080;
 
-app.use(require('./express-server'));
+const run = async () => {
+    try {
+        await mongoose.connect(db_uri);
+        app.use(express.json());
+        app.use("/api", routes);
 
-app.get("*", async (req, res) => {
-    res.sendFile(path.join(__dirname,"..","client-bagel-buddy", "build", "index.html"))
-});
-app.listen(8080, () => { console.log('server started!')});
+        app.listen(PORT, () => {
+            console.log('server started on port ', PORT)
+        });
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+run();
