@@ -1,31 +1,19 @@
 const express = require("express");
 const User = require("../models/user");
 const router = express.Router();
+const userHandlers = require("../controllers/userController.js");
+
+// register a new user
+router.post("/auth/register", userHandlers.register);
+
+// sign in
+router.post("/auth/login", userHandlers.login);
 
 // Get all users
 router.get("/", async (req, res) => {
     try {
         let users = await User.find();
         res.json({ "data": users });
-    } catch (err) {
-        res.status(500).json({ "error": err.message });
-    }
-});
-
-// create a new user
-router.post("/", async (req, res) => {
-    const user = new User({
-        name: req.body.name,
-        native_language: req.body.native_language,
-        img_url: req.body.img_url,
-        points: req.body.points,
-        type: req.body.type,
-        bio: req.body.bio,
-        gmail: req.body.gmail,
-    });
-    try {
-        await user.save();
-        res.json({ "data": user });
     } catch (err) {
         res.status(500).json({ "error": err.message });
     }
