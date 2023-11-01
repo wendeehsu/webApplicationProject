@@ -83,7 +83,6 @@
     width: 220px;
     height: 220px;
     border-radius: 220px;
-    flex: 0;
 }
 
 .star-chunk {
@@ -92,21 +91,11 @@
 }
 
 .teacher-name {
-    color: var(--Text, #3F1E07);
-
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    color: var(--main-text-color);
 }
 
 .teacher-lang {
-    color: var(--Text_Gray, #717171);
-
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 200%;
+    color: var(--gray);
 }
 
 .star {
@@ -121,13 +110,12 @@
 .teacher-text {
 
     margin-left: 40px;
-    color: var(--Text, #3F1E07);
-    /* Body */
+    color: var(--main-text-color);
+
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 200%;
-    /* 32px */
 
     flex: 4;
 }
