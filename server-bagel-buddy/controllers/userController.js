@@ -126,3 +126,20 @@ exports.getUser = async (req, res) => {
         res.status(err.status ?? 500).json({ "error": err.message });
     }
 }
+
+exports.updateProfile = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        userId = decode._id;
+        let user = await User.findOne({ _id: userId });
+        if (req.body.bio) {
+            user.bio = req.body.bio;
+        }
+
+        await user.save();
+        user.hash_password = undefined;
+        res.json({ "data": user });
+    } catch (err) {
+        res.status(err.status ?? 500).json({ "error": err.message });
+    }
+}
