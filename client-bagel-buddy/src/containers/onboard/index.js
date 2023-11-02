@@ -2,29 +2,38 @@ import React, { useState } from 'react';
 import './index.css';
 import { MainButton } from "../../components/button";
 import { useNavigate } from 'react-router-dom';
+import { login } from "../../api/user";
 
 function Onboard() {
-    const signup = "signup";
-    const login = "login";
-    const [activeTab, setActiveTab] = useState(signup);
+    const SIGNUP_TEXT = "signup";
+    const LOGIN_TEXT = "login";
+    const [activeTab, setActiveTab] = useState(SIGNUP_TEXT);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    
-    function visitMainPage() {
-        // TODO: auth + nav based on role
-        navigate("/");
+
+    const visitMainPage = async () => {
+        await login(email, password)
+            .then((res) => {
+                if (res.success) {
+                    navigate("/");
+                } else {
+                    alert(res.message);
+                }
+            });
     }
 
     return (
         <div className='onboard-page'>
             <div className='onboard-header'>
-                <div className={`onboard-nav ${activeTab == signup ? 'active' : ''}`}
-                    onClick={() => setActiveTab(signup)}>
+                <div className={`onboard-nav ${activeTab === SIGNUP_TEXT ? 'active' : ''}`}
+                    onClick={() => setActiveTab(SIGNUP_TEXT)}>
                     <h2>
                         Sign up
                     </h2>
                 </div>
-                <div className={`onboard-nav ${activeTab == login ? 'active' : ''}`}
-                    onClick={() => setActiveTab(login)}>
+                <div className={`onboard-nav ${activeTab === LOGIN_TEXT ? 'active' : ''}`}
+                    onClick={() => setActiveTab(LOGIN_TEXT)}>
                     <h2>
                         Log in
                     </h2>
@@ -34,15 +43,19 @@ function Onboard() {
                 <p>Email</p>
                 <input
                     className='input-box'
-                    type='text' />
+                    type='text'
+                    value={email}
+                    onInput={(e) => setEmail(e.target.value)} />
                 <p>Password</p>
                 <input
                     className='input-box'
-                    type='text' />
+                    type='password'
+                    value={password}
+                    onInput={(e) => setPassword(e.target.value)} />
             </div>
             <div className="signup-button">
                 <MainButton
-                    text={ activeTab == login ? "Log in" : "Sign up"}
+                    text={activeTab === LOGIN_TEXT ? "Log in" : "Sign up"}
                     onClick={visitMainPage} />
             </div>
         </div>

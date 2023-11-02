@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const routes = require("./routes/index");
+const cors = require('cors')
+
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 
@@ -10,6 +12,7 @@ const PORT = 8080;
 const run = async () => {
     try {
         await mongoose.connect(db_uri);
+        app.use(cors());
         app.use(express.json());
         app.use("/api", routes);
 
