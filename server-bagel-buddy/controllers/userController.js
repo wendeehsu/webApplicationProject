@@ -2,21 +2,63 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = mongoose.model('user');
+const Skill = mongoose.model('skill');
+const Timeslot = mongoose.model('timeslot');
 
 /* Ref:
  * https://www.loginradius.com/blog/engineering/nodejs-and-mongodb-application-authentication-by-jwt
 */
 
 exports.register = async (req, res) => {
-    let newUser = new User(req.body);
-    newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
+    let session = await mongoose.startSession();
+    session.startTransaction();
 
     try {
+        let newUser = new User(req.body);
+        newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
+
+        let newSkillList = undefined;
+        let skillList = req.body.skills;
+        if (skillList && newUser && newUser._id) {
+            newSkillList = await Promise.all(skillList.map(async (skill) => {
+                let newSkill = new Skill({
+                    userId: newUser._id,
+                    skill: skill
+                });
+                await newSkill.save();
+                return ({ userId: newSkill.userId, skill: newSkill.skill });
+            }));
+        }
+
+        let newTimeslotList = undefined;
+        let timeslotList = req.body.timeslots;
+        if (timeslotList && newUser && newUser._id) {
+            newTimeslotList = await Promise.all(timeslotList.map(async (timeslot) => {
+                let newTimeslot = new Timeslot({
+                    userId: newUser._id,
+                    timeslot: timeslot
+                });
+                await newTimeslot.save();
+                return ({ userId: newTimeslot.userId, timeslot: newTimeslot.timeslot });
+            }));
+        }
         await newUser.save();
         newUser.hash_password = undefined;
-        res.json({ "data": newUser });
+
+        res.json({
+            "data": {
+                ...newUser.toObject(),
+                skills: newSkillList,
+                timeslots: newTimeslotList
+            }
+        });
+        await session.commitTransaction();
+
     } catch (err) {
+        await session.abortTransaction();
         res.status(400).json({ "error": err.message });
+    } finally {
+        session.endSession();
     }
 
 };
