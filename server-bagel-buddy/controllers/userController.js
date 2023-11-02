@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = mongoose.model('user');
 const Skill = mongoose.model('skill');
 const Timeslot = mongoose.model('timeslot');
+const authHandler = require('./authController.js');
 
 /* Ref:
  * https://www.loginradius.com/blog/engineering/nodejs-and-mongodb-application-authentication-by-jwt
@@ -92,11 +93,36 @@ exports.getTeacherList = async (req, res) => {
         let users = await User.find({ type: type });
         let data = await Promise.all(users.map(async (user) => {
             user.hash_password = undefined;
-            let skills = await Skill.find({ userId: user._id});
-            return {...user.toObject(), skills};
+            let skills = await Skill.find({ userId: user._id });
+            return { ...user.toObject(), skills };
         }));
         res.json({ "data": data });
     } catch (err) {
         res.status(500).json({ "error": err.message });
     }
 };
+
+exports.getUser = async (req, res) => {
+    try {
+        let userId = undefined;
+        if (req.params.id) {
+            userId = req.params.id;
+        } else {
+            let decode = authHandler.authenticateToken(req);
+            userId = decode._id;
+        }
+        let user = await User.findOne({ _id: userId });
+        let skills = undefined;
+        let timeslots = undefined;
+        if (user && user._id) {
+            skills = await Skill.find({ userId: user._id });
+            timeslots = await Timeslot.find({ userId: user._id });
+            user.hash_password = undefined;
+            res.json({ "data": { ...user.toObject(), skills, timeslots } });
+        } else {
+            res.status(400).json({ "error": "User does not exist with id:" + userId });
+        }
+    } catch (err) {
+        res.status(err.status ?? 500).json({ "error": err.message });
+    }
+}
