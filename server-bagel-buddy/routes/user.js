@@ -1,6 +1,7 @@
 const express = require("express");
 const User = require("../models/user");
 require("../models/skill");
+require("../models/timeslot");
 const router = express.Router();
 const userHandlers = require("../controllers/userController.js");
 
