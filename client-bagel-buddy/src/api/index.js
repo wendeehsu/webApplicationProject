@@ -11,3 +11,7 @@ export const setToken = (token) => {
 export const getToken = () => {
     return window.sessionStorage.getItem("token");
 }
+
+export const resetToken = () => {
+    return window.sessionStorage.removeItem("token");
+}

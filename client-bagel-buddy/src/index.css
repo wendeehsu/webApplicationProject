@@ -19,6 +19,7 @@ code {
   --accent-color: #FFF2E5;
   --primary: #BF7217;
   --gray: #717171;
+  --white: #FFF;
 }
 
 h1 {
@@ -35,4 +36,5 @@ h2 {
 
 .page {
   padding: 40px;
+  margin-top: 80px;
 }

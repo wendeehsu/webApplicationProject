@@ -1,4 +1,4 @@
-import { agent, setToken } from "./index.js";
+import { agent, setToken, resetToken } from "./index.js";
 
 export const login = async (email, password) => {
     try {
@@ -9,4 +9,8 @@ export const login = async (email, password) => {
     } catch (error) {
         return { success: false, message: error.message };
     };
+}
+
+export const logout = () => {
+    resetToken();
 }
