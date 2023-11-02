@@ -85,3 +85,18 @@ exports.loginRequired = (req, res, next) => {
         return res.status(401).json({ message: 'Unauthorized user' });
     }
 };
+
+exports.getTeacherList = async (req, res) => {
+    try {
+        let type = req.query.type;
+        let users = await User.find({ type: type });
+        let data = await Promise.all(users.map(async (user) => {
+            user.hash_password = undefined;
+            let skills = await Skill.find({ userId: user._id});
+            return {...user.toObject(), skills};
+        }));
+        res.json({ "data": data });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+};

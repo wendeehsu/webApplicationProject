@@ -11,15 +11,8 @@ router.post("/auth/register", userHandlers.register);
 // sign in
 router.post("/auth/login", userHandlers.login);
 
-// Get all users
-router.get("/", async (req, res) => {
-    try {
-        let users = await User.find();
-        res.json({ "data": users });
-    } catch (err) {
-        res.status(500).json({ "error": err.message });
-    }
-});
+// Get all teachers
+router.get("*", userHandlers.getTeacherList);
 
 // find a single user
 router.get("/:id", async (req, res) => {
