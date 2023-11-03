@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './index.css';
+
 import UpcomingLessonPage from './upcoming/upcoming';
 import PendingLessonPage from './pending/pending';
 import CanceledLessonPage from './canceled/canceled';
@@ -26,7 +26,7 @@ function LessonPage() {
 
     return (
         <div className='page'>
-            <h1>Lessons</h1>
+            <h1>Teacher's Lessons</h1>
             <div className='lesson-tab-header'>
                 {
                     tabs.map((tab) =>
