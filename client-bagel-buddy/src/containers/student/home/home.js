@@ -22,6 +22,7 @@ function HomePage() {
                 { [1,2,3].map((i) => (
                     <Card
                         id={i}
+                        key={`card-${i}`}
                         name="Alysa Yang"
                         nationality="U.S.A"
                         star={4}
@@ -38,6 +39,7 @@ function HomePage() {
                 { [1,2,3].map((i) => (
                     <Card
                         id={i}
+                        key={`teacher-${i}`}
                         name="Alysa Yang"
                         nationality="U.S.A"
                         star={4}
