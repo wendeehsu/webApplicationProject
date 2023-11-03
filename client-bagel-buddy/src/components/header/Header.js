@@ -13,7 +13,7 @@ function Header() {
 
     const navList = [{
         text: 'Teachers',
-        path: '/teacherList'
+        path: '/teachers'
     }, {
         text: 'Lessons',
         path: '/myLessons'

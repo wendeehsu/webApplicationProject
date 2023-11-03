@@ -18,7 +18,7 @@ function Card({
     return (
         <div key={id}
             className='card'
-            onClick={() => timeslot == null ? navigate('/teacherDetail/' + id) : undefined}>
+            onClick={() => timeslot == null ? navigate('/teacher/' + id) : undefined}>
             <div className='card-img'
                 style={{ backgroundImage: `url(${user_img_url})` }} />
             <h2>{name}</h2>
