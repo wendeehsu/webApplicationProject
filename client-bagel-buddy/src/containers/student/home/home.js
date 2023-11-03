@@ -1,8 +1,23 @@
-import React from 'react';
-import './home.css';
+import React, { useEffect, useState } from 'react';
 import Card from '../../../components/card';
+import { getAllTeachers } from "../../../api/user";
+import './home.css';
 
 function HomePage() {
+    const [teacherList, setTeacherList] = useState([]);
+
+    useEffect(() => {
+        getAllTeachers().then((res) => {
+            if (res.success) {
+                let { data } = res;
+                data = data.filter((d, i) => i < 4);
+                setTeacherList(data);
+            } else {
+                setTeacherList([]);
+            }
+        });
+    }, []);
+
     return (
         <div className='page'>
             <div className='home-point-earn-section'>
@@ -18,8 +33,8 @@ function HomePage() {
             <h1>
                 Upcoming Lessons
             </h1>
-            <div className='card-row'>
-                { [1,2,3].map((i) => (
+            <div className='card-horizontal-list'>
+                {[1, 2, 3].map((i) => (
                     <Card
                         id={i}
                         key={`card-${i}`}
@@ -31,20 +46,23 @@ function HomePage() {
                     />))
                 }
             </div>
-            
+
             <h1>
                 Recommended Teachers
             </h1>
-            <div className='card-row'>
-                { [1,2,3].map((i) => (
-                    <Card
-                        id={i}
-                        key={`teacher-${i}`}
-                        name="Alysa Yang"
-                        nationality="U.S.A"
-                        star={4}
-                        skills={[0,1]}
-                    />))
+            <div className='card-horizontal-list'>
+                {
+                    teacherList.map((teacher, index) =>
+                        <Card
+                            key={index}
+                            id={teacher._id}
+                            name={teacher.name}
+                            nativeLanguage={teacher.native_language}
+                            star={teacher.points}
+                            imgURL={teacher.img_url}
+                            skills={teacher.skills.map((s) => s.skill)}
+                        />
+                    )
                 }
             </div>
         </div>

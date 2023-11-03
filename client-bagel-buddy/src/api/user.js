@@ -27,6 +27,15 @@ export const getProfile = async () => {
     };
 }
 
+export const getAllTeachers = async () => {
+    try {
+        let { data } = await agent.get(`/user?type=1`);
+        return { success: true, data: data.data };
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}
+
 export const logout = () => {
     resetToken();
 }

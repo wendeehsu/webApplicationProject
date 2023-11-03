@@ -7,9 +7,3 @@
 .home-text-section {
     flex: 2;
 }
-
-.card-row {
-    display: flex;
-    column-gap: 24px;
-    margin: 40px auto;
-}
