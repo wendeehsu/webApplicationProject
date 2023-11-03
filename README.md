@@ -1,7 +1,10 @@
-# webApplicationProject
-Course project for the 2023 Fall web application course in UT Austin
-* frontend: client-bagel-buddy
-* backend: TBD
+# Bagel Buddies
+A website for language learners to meet with native speakers :D
+> This is a course project for the 2023 Fall web application course in UT Austin.
+
+* frontend: React.js (client-bagel-buddy)
+* backend: Node.js (server-bagel-buddy)
+* database: MongoDB
 
 # Project Setup
 1. In your local terminal, `cd` to a folder
@@ -9,6 +12,10 @@ Course project for the 2023 Fall web application course in UT Austin
 ```
 git clone https://github.com/wendeehsu/webapp.git
 ```
+
+# Running the platform
+1. Run the [backend](server-bagel-buddy/README.md)
+1. Run the [frontend](client-bagel-buddy/README.md)
 
 # How to co-work?
 1. create [an issue](https://github.com/wendeehsu/webapp/issues) -> `New issue`
