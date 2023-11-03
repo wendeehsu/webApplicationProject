@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import StudentHome from './containers/student/home/home';
 import StudentTeacherList from './containers/student/teacherList/teacherList';

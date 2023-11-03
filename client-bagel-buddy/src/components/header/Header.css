@@ -7,6 +7,9 @@ p {
     box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.25);
     padding: 16px 40px;
     display: flex;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 80px);
 }
 
 .hide {
@@ -21,7 +24,7 @@ p {
     cursor: pointer;
 }
 
-.header-brand > p {
+.header-brand>p {
     font-size: 24px;
     font-weight: 600;
     margin: auto 84px auto auto;
@@ -53,4 +56,28 @@ p {
     background-size: cover;
     background-position: center;
     margin-left: auto;
+}
+
+.header-user:hover {
+    cursor: pointer;
+}
+
+.user-dropdown {
+    position: fixed;
+    top: 92px;
+    right: 40px;
+    width: 120px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: var(--white);
+    box-shadow: 0px 4px 8px 0px var(--card-border-color);
+}
+
+.dropdown-item {
+    font-size: 16px;
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
+    color: var(--primary);
 }
