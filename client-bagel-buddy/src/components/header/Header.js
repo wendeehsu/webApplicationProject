@@ -1,23 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { logout } from '../../api/user';
+import { logout, getProfile } from '../../api/user';
 import './Header.css';
 
 function Header() {
-    const user_img_url = "../../images/user1.png";
     const navigate = useNavigate();
     const location = useLocation();
     const userRef = useRef(null);
 
     const [showDropDown, setShowDropDown] = useState(false);
+    const [navList, setNavList] = useState([]);
+    const [user, setUser] = useState(null);
 
-    const navList = [{
-        text: 'Teachers',
-        path: '/teachers'
-    }, {
-        text: 'Lessons',
-        path: '/myLessons'
-    }];
+    useEffect(() => {
+        if (location.pathname !== "/") return;
+        getProfile()
+            .then((res) => {
+                if (res.success) {
+                    let { data } = res;
+                    setUser(data);
+                    if (data.type === 0) {
+                        setNavList([{
+                            text: 'Teachers',
+                            path: '/teachers'
+                        }, {
+                            text: 'Lessons',
+                            path: '/myLessons'
+                        }]);
+                    } else {
+                        setNavList([]);
+                    }
+                }
+            })
+    }, [location.pathname]);
 
     useEffect(() => {
         document.addEventListener('click', handleUserClickOutside, true);
@@ -55,7 +70,7 @@ function Header() {
             }
             <div
                 className='header-user'
-                style={{ backgroundImage: `url(${user_img_url})` }}
+                style={{ backgroundImage: `url('../../images/${user ? user.img_url : 'logo.png'}')` }}
                 onClick={() => setShowDropDown(true)}
             />
             {
