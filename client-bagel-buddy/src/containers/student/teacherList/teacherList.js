@@ -1,41 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import './teacherList.css';
+import { getAllTeachers } from "../../../api/user";
 import Card from '../../../components/card';
+import './teacherList.css';
 
 function TeacherListPage() {
     const [teacherList, setTeacherList] = useState([]);
+
     useEffect(() => {
-        setTeacherList([{
-            id:1,
-            name: "Alysa Yang",
-            nationality: "U.S.A.",
-            star: 4,
-            skills: [0,1]
-        },{
-            id:2,
-            name: "Leslie Alexander",
-            nationality: "United Kindom",
-            star: 2,
-            skills: [1]
-        },{
-            id:3,
-            name: "Jerome Bell",
-            nationality: "Australia",
-            star: 5,
-            skills: [1,2]
-        },{
-            id:4,
-            name: "Kathryn Murphy",
-            nationality: "U.S.A.",
-            star: 3,
-            skills: [0,1,2,3]
-        },{
-            id:5,
-            name: "Alysa Yang",
-            nationality: "U.S.A.",
-            star: 4,
-            skills: [0,1]
-        }])
+        getAllTeachers().then((res) => {
+            if (res.success) {
+                let { data } = res;
+                setTeacherList(data);
+            } else {
+                setTeacherList([]);
+            }
+        });
     }, []);
 
     return (
@@ -45,15 +24,16 @@ function TeacherListPage() {
             </h1>
             <div className='card-horizontal-list'>
                 {
-                    teacherList.map((teacher, index) => 
+                    teacherList.map((teacher, index) =>
                         <Card
                             key={index}
-                            id={teacher.id}
+                            id={teacher._id}
                             name={teacher.name}
-                            nationality={teacher.nationality}
-                            star={teacher.star}
-                            skills={teacher.skills}
-                         />
+                            nativeLanguage={teacher.native_language}
+                            star={teacher.points}
+                            imgURL={teacher.img_url}
+                            skills={teacher.skills.map((s) => s.skill)}
+                        />
                     )
                 }
             </div>

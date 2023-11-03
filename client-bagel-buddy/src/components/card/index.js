@@ -6,23 +6,23 @@ import { MainButton } from '../button';
 function Card({
     id,
     name,
-    nationality,
+    nativeLanguage,
     star,
+    imgURL,
     skills = [],
     timeslot = null,
     meetLink = null
 }) {
     const navigate = useNavigate();
-    const user_img_url = "../../images/user" + (1 + id % 4) + ".png";
 
     return (
         <div key={id}
             className='card'
             onClick={() => timeslot == null ? navigate('/teacher/' + id) : undefined}>
             <div className='card-img'
-                style={{ backgroundImage: `url(${user_img_url})` }} />
+                style={{ backgroundImage: `url('../../images/${imgURL}')` }} />
             <h2>{name}</h2>
-            <p className='teacher-language'>{nationality}</p>
+            <p className='teacher-language'>{nativeLanguage}</p>
             <div className=''>
                 {
                     Array.from({ length: star })
