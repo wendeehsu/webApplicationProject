@@ -9,7 +9,11 @@ export const setToken = (token) => {
 }
 
 export const getToken = () => {
-    return window.sessionStorage.getItem("token");
+    let token = window.sessionStorage.getItem("token");
+    if (token === '' || token === undefined) {
+        throw ({message: "Login session expired. Please log in again"});
+    }
+    return token;
 }
 
 export const resetToken = () => {
