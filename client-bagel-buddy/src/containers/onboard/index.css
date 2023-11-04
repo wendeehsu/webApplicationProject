@@ -124,3 +124,15 @@
     margin: 12px auto;
     accent-color: var(--primary);
 }
+
+.time-list {
+    width: 300px;
+}
+
+.time-list > .skill-chip:nth-child(odd) {
+    margin-left: auto;
+}
+
+.time-list > .skill-chip:nth-child(even) {
+    margin-right: auto;
+}

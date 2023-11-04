@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './index.css';
 import { MainButton, SecondaryButton } from "../../components/button";
 import { useNavigate } from 'react-router-dom';
-import { login } from "../../api/user";
+import { login, register } from "../../api/user";
 
 function Onboard() {
     const SIGNUP_TEXT = "signup";
@@ -18,14 +18,31 @@ function Onboard() {
         "Portuguese",
         "Indonesian",
         "Others"];
+    const timeList = [
+        { text: "Monday AM", selected: false, value: 10 },
+        { text: "Monday PM", selected: false, value: 11 },
+        { text: "Tuesday AM", selected: false, value: 20 },
+        { text: "Tuesday PM", selected: false, value: 21 },
+        { text: "Wednesday AM", selected: false, value: 30 },
+        { text: "Wednesday PM", selected: false, value: 31 },
+        { text: "Thursday AM", selected: false, value: 40 },
+        { text: "Thursday PM", selected: false, value: 41 },
+        { text: "Friday AM", selected: false, value: 50 },
+        { text: "Friday PM", selected: false, value: 51 },
+        { text: "Saturday AM", selected: false, value: 60 },
+        { text: "Saturday PM", selected: false, value: 61 },
+        { text: "Sunday AM", selected: false, value: 70 },
+        { text: "Sunday PM", selected: false, value: 71 }];
+
     const [activeTab, setActiveTab] = useState(LOGIN_TEXT);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState(0);
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [imgUrl, setImgUrl] = useState("user1.png");
     const [language, setLanguage] = useState(languageList[0]);
     const [selectedSkills, setSelectedSkills] = useState([]);
+    const [selectedTimes, setSelectedTimes] = useState(timeList);
     const [onboardStage, setOnboardStage] = useState(0);
     const navigate = useNavigate();
 
@@ -53,7 +70,7 @@ function Onboard() {
                 return;
             }
         } else if (onboardStage === 1) {
-            if (name === "" || name === undefined) {
+            if (username === "" || username === undefined) {
                 alert("Please input your name >_<");
                 return;
             }
@@ -63,15 +80,36 @@ function Onboard() {
                 return;
             }
             if (role === 0) {
-                // TODO: register api
-                navigate("/");
-                resetStates();
+                let skills = [...selectedSkills];
+                skills.sort();
+                register(email, password, role, imgUrl, username, language, skills)
+                    .then((res) => {
+                        if (res.success) {
+                            navigate("/");
+                            resetStates();
+                        } else {
+                            alert(res.message)
+                        }
+                    })
                 return;
             }
         } else {
-            // TODO: register api
-            navigate("/");
-            resetStates();
+            if (selectedTimes.filter((t) => t.selected).length === 0) {
+                alert("Please select at least 1 timeslot!");
+                return;
+            }
+            let skills = [...selectedSkills];
+            skills.sort();
+            let times = selectedTimes.filter((i) => i.selected).map((i) => i.value);
+            register(email, password, role, imgUrl, username, language, skills, times)
+                .then((res) => {
+                    if (res.success) {
+                        navigate("/");
+                        resetStates();
+                    } else {
+                        alert(res.message)
+                    }
+                })
             return;
         }
         setOnboardStage(onboardStage + 1);
@@ -81,10 +119,11 @@ function Onboard() {
         setEmail("");
         setPassword("");
         setRole(0);
-        setName("");
+        setUsername("");
         setImgUrl("user1.png");
         setLanguage(languageList[0]);
         setSelectedSkills([]);
+        setSelectedTimes(timeList);
         setOnboardStage(0);
     }
 
@@ -106,6 +145,12 @@ function Onboard() {
             data.push(index);
         }
         setSelectedSkills(data);
+    }
+
+    const updateTime = (index) => {
+        let data = [...selectedTimes];
+        data[index].selected = !data[index].selected;
+        setSelectedTimes(data);
     }
 
     return (
@@ -149,7 +194,7 @@ function Onboard() {
                                             checked={role === 0}
                                             onChange={() => setRole(0)}
                                             name="userType" />
-                                        <label>
+                                        <label onClick={() => setRole(0)}>
                                             I want to be a student
                                         </label>
                                         <br />
@@ -159,7 +204,7 @@ function Onboard() {
                                             checked={role === 1}
                                             onChange={() => setRole(1)}
                                             name="userType" />
-                                        <label>
+                                        <label onClick={() => setRole(1)}>
                                             I want to be a teacher
                                         </label>
                                     </div>
@@ -186,8 +231,8 @@ function Onboard() {
                                 <input
                                     className='input-box'
                                     type='text'
-                                    value={name}
-                                    onInput={(e) => { updateProfile(); setName(e.target.value) }} />
+                                    value={username}
+                                    onInput={(e) => { updateProfile(); setUsername(e.target.value) }} />
                                 <p>What is your native language?</p>
                                 <select
                                     className='language-selection'
@@ -237,7 +282,19 @@ function Onboard() {
                         ) : (
                             <div>
                                 <p>Which days are you available?</p>
-                                {/* TODO: add timechip */}
+                                <div className='skill-list time-list'>
+                                    {
+                                        selectedTimes
+                                            .map((time, index) => (
+                                                <div
+                                                    key={time.value}
+                                                    className={`skill-chip selectable-chip ${time.selected ? 'selected' : ''}`}
+                                                    onClick={() => updateTime(index)}>
+                                                    <p className='skillBox'>{time.text}</p>
+                                                </div>
+                                            ))
+                                    }
+                                </div>
                                 <div className="signup-button">
                                     <SecondaryButton
                                         text={"Back"}
