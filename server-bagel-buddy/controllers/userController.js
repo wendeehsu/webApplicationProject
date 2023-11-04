@@ -51,7 +51,12 @@ exports.register = async (req, res) => {
                 ...newUser.toObject(),
                 skills: newSkillList,
                 timeslots: newTimeslotList
-            }
+            },
+            "token": jwt.sign({
+                email: newUser.email,
+                name: newUser.name,
+                _id: newUser._id },
+                'RESTFULAPIs')
         });
         await session.commitTransaction();
 
