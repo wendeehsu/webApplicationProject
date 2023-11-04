@@ -38,7 +38,7 @@ function Card({
                 (timeslot == null) ? (
                     <div className='skill-list'>
                         {
-                            ["writing", "reading", "speaking", "grammar"]
+                            ["speaking", "writing", "reading", "listening"]
                                 .filter((skill, index) => skills.includes(index))
                                 .map((skill, index) => (
                                     <div className='skill-chip' key={`skill-${index}`}>
