@@ -81,3 +81,50 @@ exports.confirmLesson = async (req, res) => {
         res.status(500).json({ "error": err.message });
     }
 }
+
+exports.getUpcomingLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+        
+        // check if user exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user.` });
+        }
+
+        let lessons = [];
+        let now = new Date();
+        if (user.type === 0) {
+            // student
+            lessons = await Lesson.find({
+                studentId: userId,
+                status: lessonStatus.CONFIRMED,
+                timeslotStart: { $gte: now}
+            });
+        } else {
+            // teacher
+            lessons = await Lesson.find({
+                teacherId: userId,
+                status: lessonStatus.CONFIRMED,
+                timeslotStart: { $gte: now}
+            });
+        }
+        let data = await getUserDetailsForLessons(lessons);
+        res.json({ "data": data });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+const getUserDetailsForLessons = async (lessons) => {
+    return await Promise.all(lessons.map(async (lesson) => {
+        let student = await User.findOne({ _id: lesson.studentId });
+        let teacher = await User.findOne({ _id: lesson.teacherId });
+        lesson.studentId = undefined;
+        lesson.teacherId = undefined;
+        student.hash_password = undefined;
+        teacher.hash_password = undefined;
+        return {lesson, student, teacher};
+    }));
+}
