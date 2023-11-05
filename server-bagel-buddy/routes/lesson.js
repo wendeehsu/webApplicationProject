@@ -8,4 +8,10 @@ router.post("/", lessonHandlers.createLesson);
 // confirm lesson
 router.patch("/:id/confirm", lessonHandlers.confirmLesson);
 
+// get lesson by type
+router.get("/upcoming", lessonHandlers.getUpcomingLesson);
+router.get("/pending", lessonHandlers.getPendingLesson);
+router.get("/cancel", lessonHandlers.getCancelLesson);
+router.get("/history", lessonHandlers.getHistoryLesson);
+
 module.exports = router;
