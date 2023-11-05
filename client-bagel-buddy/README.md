@@ -32,3 +32,11 @@ You can start coding now! The page will reload when you make changes.
 
 ## Stop the web
 1. type `Ctrl + C` in the terminal (`Command + C` for mac users)
+
+## Run the unit test
+> For the first time, you may need to run `npm install` to install testing libraries
+
+In the project directory (aka `/client-bagel-buddy`), run this in the terminal:
+```
+npm run test
+```
