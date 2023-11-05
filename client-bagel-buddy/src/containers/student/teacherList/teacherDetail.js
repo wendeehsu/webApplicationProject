@@ -19,14 +19,9 @@ function TeacherDetailPage() {
         { text: "Sept 21, Thu, 16:00 - 16:30", selected: false, value: 30 },
         { text: "Sept 22, Fri, 10:30 - 11:00", selected: false, value: 31 },
     ];
-    const signup = "signup";
-    const login = "login";
-    const [activeTab, setActiveTab] = useState(signup);
     const [selectedTimes, setSelectedTimes] = useState(timeList);
 
     const selectedTime = selectedTimes.find(time => time.selected);
-
-
 
     const updateTime = (index) => {
 
@@ -171,7 +166,7 @@ function TeacherDetailPage() {
                         }
                         <div className='user-confirm'>
                             <p id='selection'> You selected: </p>
-                            <h2 id='date-selected'> {selectedTime ? selectedTime.text : 'No timeslot selected'} </h2>
+                            <h2> {selectedTime ? selectedTime.text : 'No timeslot selected'} </h2>
                         </div>
                     </div>
 
