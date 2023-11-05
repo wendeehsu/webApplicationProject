@@ -27,7 +27,7 @@
     flex: 2;
     border: 1px solid var(--card-border-color);
     border-radius: 24px;
-    padding: 36px 40px;
+    padding: 25px 35px;
 }
 
 /* Review */
@@ -118,4 +118,48 @@
     line-height: 200%;
 
     flex: 4;
+}
+
+.time-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 4px;
+    margin-top: 30px;
+}
+
+.timeBox {
+    margin-top: auto;
+    margin-bottom: auto;
+    line-height: 200%;
+    text-align: center;
+    font-size: 16px;
+}
+
+.time-chip {
+    color: var(--main-text-color);
+    background-color: var(--accent-color);
+    padding: 4px 12px;
+    font-size: 16px;
+    border-radius: 48px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 220px;
+    margin-left: 5px;
+}
+
+#selection {
+    color: var(--gray);
+}
+
+.selected {
+    background-color: var(--primary);
+    color: white;
+}
+
+.selected > p {
+    color: white;
+}
+
+.selectable-chip:hover {
+    cursor: pointer;
 }
