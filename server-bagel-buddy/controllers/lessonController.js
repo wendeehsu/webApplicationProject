@@ -50,7 +50,7 @@ exports.confirmLesson = async (req, res) => {
     try {
         let decode = authHandler.authenticateToken(req);
         let userId = decode._id;
-        
+
         // check if teacher exist
         let teacher = await User.findOne({ _id: userId, type: 1 });
         if (!teacher) {
@@ -63,14 +63,14 @@ exports.confirmLesson = async (req, res) => {
         if (!lesson) {
             return res.status(401).json({ message: `Lesson with id ${lessonId} does not exist` });
         } else if (lesson.status !== lessonStatus.PENDING) {
-            return res.status(401).json({ message: `Lesson with id ${lessonId} is already ${lesson.status === lessonStatus.CANCELED ? 'canceled': 'confirmed'}.` });
+            return res.status(401).json({ message: `Lesson with id ${lessonId} is already ${lesson.status === lessonStatus.CANCELED ? 'canceled' : 'confirmed'}.` });
         } else if (lesson.teacherId !== userId) {
             return res.status(401).json({ message: `The user is not the teacher of course ${lessonId}` });
         }
 
         let student = await User.findOne({ _id: lesson.studentId, type: 0 });
 
-        lesson.status = lessonStatus.CONFIRMED; 
+        lesson.status = lessonStatus.CONFIRMED;
         // TODO: create meet link
         console.log("student email:", student.email, "teacher email:", teacher.email);
         lesson.meetLink = "https://meet.google.com/oau-uzau-tss";
@@ -86,7 +86,7 @@ exports.getUpcomingLesson = async (req, res) => {
     try {
         let decode = authHandler.authenticateToken(req);
         let userId = decode._id;
-        
+
         // check if user exist
         let user = await User.findOne({ _id: userId });
         if (!user) {
@@ -100,17 +100,118 @@ exports.getUpcomingLesson = async (req, res) => {
             lessons = await Lesson.find({
                 studentId: userId,
                 status: lessonStatus.CONFIRMED,
-                timeslotStart: { $gte: now}
+                timeslotStart: { $gte: now }
             });
         } else {
             // teacher
             lessons = await Lesson.find({
                 teacherId: userId,
                 status: lessonStatus.CONFIRMED,
-                timeslotStart: { $gte: now}
+                timeslotStart: { $gte: now }
             });
         }
         let data = await getUserDetailsForLessons(lessons);
+        res.json({ "data": data });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+exports.getPendingLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+
+        // check if user exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user.` });
+        }
+
+        let lessons = [];
+        if (user.type === 0) {
+            // student
+            lessons = await Lesson.find({
+                studentId: userId,
+                status: lessonStatus.PENDING,
+            });
+        } else {
+            // teacher
+            lessons = await Lesson.find({
+                teacherId: userId,
+                status: lessonStatus.PENDING,
+            });
+        }
+        let data = await getUserDetailsForLessons(lessons);
+        res.json({ "data": data });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+exports.getCancelLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+
+        // check if user exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user.` });
+        }
+
+        let lessons = [];
+        if (user.type === 0) {
+            // student
+            lessons = await Lesson.find({
+                studentId: userId,
+                status: lessonStatus.CANCELED,
+            });
+        } else {
+            // teacher
+            lessons = await Lesson.find({
+                teacherId: userId,
+                status: lessonStatus.CANCELED,
+            });
+        }
+        let data = await getUserDetailsForLessons(lessons);
+        // TODO: add cancel reason
+        res.json({ "data": data });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+exports.getHistoryLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+
+        // check if user exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user.` });
+        }
+
+        let lessons = [];
+        let now = new Date();
+        if (user.type === 0) {
+            // student
+            lessons = await Lesson.find({
+                studentId: userId,
+                status: lessonStatus.CONFIRMED,
+                timeslotStart: { $lt: now }
+            });
+        } else {
+            // teacher
+            lessons = await Lesson.find({
+                teacherId: userId,
+                status: lessonStatus.CONFIRMED,
+                timeslotStart: { $lt: now }
+            });
+        }
+        let data = await getUserDetailsForLessons(lessons);
+        // TODO: add review
         res.json({ "data": data });
     } catch (err) {
         res.status(500).json({ "error": err.message });
@@ -125,6 +226,6 @@ const getUserDetailsForLessons = async (lessons) => {
         lesson.teacherId = undefined;
         student.hash_password = undefined;
         teacher.hash_password = undefined;
-        return {lesson, student, teacher};
+        return { lesson, student, teacher };
     }));
 }
