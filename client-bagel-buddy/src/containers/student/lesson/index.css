@@ -39,6 +39,7 @@
 
 .lesson-content {
     min-height: 225px;
+    flex-grow: 1;
 }
 
 .content-title {

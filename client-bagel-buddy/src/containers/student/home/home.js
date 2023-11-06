@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../../components/card';
 import { getAllTeachers } from "../../../api/user";
+import { getUpcomingLesson } from '../../../api/lesson';
 import './home.css';
 
 function HomePage() {
     const [teacherList, setTeacherList] = useState([]);
+    const [lessonList, setLessonList] = useState([]);
 
     useEffect(() => {
         getAllTeachers().then((res) => {
@@ -16,6 +18,21 @@ function HomePage() {
                 setTeacherList([]);
             }
         });
+        getUpcomingLesson()
+            .then((res) => {
+                if (res.success) {
+                    let data = res.data
+                        .map((lesson) => {
+                            lesson.lesson.timeslotStart = new Date(lesson.lesson.timeslotStart)
+                                .toLocaleString("en-US", { timeZone: "America/Chicago" });
+                            return lesson;
+                        })
+                        .filter((lesson, i) => i < 4);;
+                    setLessonList(data);
+                } else {
+                    alert(res.message);
+                }
+            });
     }, []);
 
     return (
@@ -34,16 +51,21 @@ function HomePage() {
                 Upcoming Lessons
             </h1>
             <div className='card-horizontal-list'>
-                {[1, 2, 3].map((i) => (
-                    <Card
-                        id={i}
-                        key={`card-${i}`}
-                        name="Alysa Yang"
-                        nationality="U.S.A"
-                        star={4}
-                        timeslot="Sep 20, Wed, 20:00 - 20:30"
-                        meetLink="https://meet.google.com/zzw-cqtw-nkt"
-                    />))
+                {(lessonList === undefined || lessonList.length === 0) ?
+                    (
+                        <p>* There is no upcoming lesson. *</p>
+                    ) : (lessonList.map((lesson) => (
+                        <Card
+                            id={lesson.lesson._id}
+                            key={`card-${lesson.lesson._id}`}
+                            name={lesson.teacher.name}
+                            nativeLanguage={lesson.teacher.native_language}
+                            imgURL={lesson.teacher.img_url}
+                            star={lesson.teacher.points}
+                            timeslot={lesson.lesson.timeslotStart}
+                            meetLink={lesson.lesson.meetLink}
+                        />))
+                    )
                 }
             </div>
 
