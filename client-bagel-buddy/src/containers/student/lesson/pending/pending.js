@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
+import PopUp from "../../../../components/popup";
 import "../index.css";
 
-function pendingLessonPage() {
+function PendingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
 
@@ -14,7 +15,7 @@ function pendingLessonPage() {
             timeSlot: "Sep 20, Wed, 20:00 - 20:30",
             content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
             meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "1.png"
+            imgUrl: user_img_url + "6.png"
         }, {
             id: 2,
             name: "Arlene McCoy",
@@ -22,7 +23,7 @@ function pendingLessonPage() {
             timeSlot: "Sep 20, Wed, 20:00 - 20:30",
             content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
             meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "2.png"
+            imgUrl: user_img_url + "5.png"
         }, {
             id: 3,
             name: "Cody Fisher",
@@ -30,7 +31,7 @@ function pendingLessonPage() {
             timeSlot: "Sep 20, Wed, 20:00 - 20:30",
             content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
             meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "3.png"
+            imgUrl: user_img_url + "8.png"
         }])
     }, []);
 
@@ -59,7 +60,10 @@ function pendingLessonPage() {
                                 <MainButton
                                     text="Cancel"
                                     onClick={() => 
-                                        window.open(lesson.meetLink, "_blank")} /*what should this open?*/
+                                        <PopUp 
+                                            id = {1}
+                                            text = {"press this button"} />}
+                                        /*window.open(lesson.meetLink, "_blank")}*/ /*what should this open?*/
                                 />
                             </div>
                         </div>
@@ -71,4 +75,4 @@ function pendingLessonPage() {
 
 }
 
-export default pendingLessonPage;
+export default PendingLessonPage;
