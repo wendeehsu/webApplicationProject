@@ -6,6 +6,7 @@ import "../index.css";
 function PendingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     useEffect(() => {
         setLessonList([{
@@ -55,17 +56,16 @@ function PendingLessonPage() {
                             <p className='content-request'>
                                 {lesson.content}
                             </p>
-                            
+
+
                             <div className='button-section'>
-                                <MainButton
-                                    text="Cancel"
-                                    onClick={() => 
-                                        <PopUp 
-                                            id = {1}
-                                            text = {"press this button"} />}
-                                        /*window.open(lesson.meetLink, "_blank")}*/ /*what should this open?*/
-                                />
+                                <MainButton text="Cancel" onClick={() => setIsPopUpOpen(true)} />
+
+                                {isPopUpOpen && (
+                                    <PopUp id={1} text="press this button" />
+                                )}
                             </div>
+
                         </div>
                     </div>
                 ))
