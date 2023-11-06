@@ -55,7 +55,8 @@ exports.register = async (req, res) => {
             "token": jwt.sign({
                 email: newUser.email,
                 name: newUser.name,
-                _id: newUser._id },
+                _id: newUser._id
+            },
                 'RESTFULAPIs')
         });
         await session.commitTransaction();
@@ -81,14 +82,6 @@ exports.login = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-    }
-};
-
-exports.loginRequired = (req, res, next) => {
-    if (req.user) {
-        next();
-    } else {
-        return res.status(401).json({ message: 'Unauthorized user' });
     }
 };
 
@@ -144,6 +137,23 @@ exports.updateProfile = async (req, res) => {
         await user.save();
         user.hash_password = undefined;
         res.json({ "data": user });
+    } catch (err) {
+        res.status(err.status ?? 500).json({ "error": err.message });
+    }
+}
+
+exports.getAvailableTimeslots = async (req, res) => {
+    try {
+        let userId = req.params.id;
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user id ${userId}` });
+        }
+
+        let timeslots = await Timeslot.find({ userId: user._id });
+        let data = timeslots.map((t) => t.getTimeList()).flat()
+            .map((t) => t.toLocaleString("en-US", { timezone: "GMT-6" }));
+        res.json({ "data": data });
     } catch (err) {
         res.status(err.status ?? 500).json({ "error": err.message });
     }
