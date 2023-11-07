@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
-import { useNavigate } from 'react-router-dom';
-import { MainButton } from '../button';
-import { Component } from 'react';
 
 function PopUp({
     id,

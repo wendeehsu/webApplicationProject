@@ -6,7 +6,6 @@ import StudentTeacherList from './containers/student/teacherList/teacherList';
 import StudentLessons from './containers/student/lesson';
 import StudentTeacherPage from './containers/student/teacherList/teacherDetail';
 import Onboard from './containers/onboard';
-import popup from './components/popup';
 
 function App() { 
   return (
