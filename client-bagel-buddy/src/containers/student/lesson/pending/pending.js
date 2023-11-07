@@ -59,11 +59,7 @@ function PendingLessonPage() {
 
 
                             <div className='button-section'>
-                                <MainButton text="Cancel" onClick={() => setIsPopUpOpen(true)} />
-
-                                {isPopUpOpen && (
-                                    <PopUp id={1} text="press this button" />
-                                )}
+                                <PopUp id={1} text="Cancel" content = "Let your teacher know why you cancelled..." buttonLabel = "Cancel Lesson" popUpLabel = "Send a Message"/>
                             </div>
 
                         </div>

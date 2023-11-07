@@ -1,4 +1,3 @@
-/* CSS for the popup overlay */
 
 .popup-overlay {
     display: flex;
@@ -9,28 +8,59 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 1000; /* Ensure the popup appears above other elements */
-  }
-  
-  /* CSS for the popup container */
-  .popup-container {
-    background: #fff; /* Popup background color */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift effect */
-  }
-  
-  /* CSS for the close button */
-  .close-btn {
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup-container {
+    border-radius: 24px;
+    background: var(--bg-white, #FFF);
+    display: flex;
+    width: 600px;
+    padding: 24px;
+    gap: 24px;
+}
+
+.popup-container .close-button {
     cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  /* Additional styles for popup content */
-  .popup-content {
-    /* Add styles for the content inside the popup if needed */
-  }
-  
+    border: none;
+    background-color: white;
+    font-size: 18px;
+    float: right;
+}
+
+.popup-button {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin: 12px 0px;
+    color: white;
+    background-color: var(--primary);
+    border: 0px;
+}
+
+.modal-body {
+    display: flex;
+    height: 352px;
+    padding: 24px;
+    gap: 72px;
+    border-radius: 24px;
+    border: 1px solid var(--Border, #AFAFAF);
+    width: 550px;
+    color: #717171;
+    font-family: Inter;
+}
+
+.submit-button {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-top: 24px;
+    margin-bottom: auto;
+    color: white;
+    background-color: var(--primary);
+    border: 0px;
+    float: right;
+}
