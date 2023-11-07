@@ -20,14 +20,13 @@ function PopUp({
         <>
             {/* click of button toggles `open` value therefore visibility */}
             <button
-                className='popup-button'
+                className='main btn'
                 onClick={() => setOpen(!open)} s
                 data-toggle="modal"
                 data-target={`#${id}`}
             >
                 {text}
             </button>
-
             {/* If open is true show your <div /> */}
             {open && (
                 <div
@@ -38,7 +37,6 @@ function PopUp({
                     aria-labelledby="exampleModalLabel"
                     aria-hidden="true"
                 >
-
                     <div className="popup-container" role="document">
                         <div className="modal-content">
                             <button
@@ -50,7 +48,6 @@ function PopUp({
                                 <span aria-hidden="true">X</span>
                             </button>
                             <div className="modal-header">
-
                                 <h1 className="modal-title">
                                     {popUpLabel}
                                 </h1>
@@ -61,12 +58,9 @@ function PopUp({
                                 value={textcancel}
                                 placeholder={content}
                                 onInput={(e) => setCancel(e.target.value)} />
-
                             <input className="submit-button" type="button" value={buttonLabel}
-
                                 /* TODO: Include backend for submitting cancellation message */
                                 onClick={() => setOpen(false)} />
-
                         </div>
                     </div>
                 </div>

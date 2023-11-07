@@ -14,7 +14,7 @@
 
 .popup-container {
     border-radius: 24px;
-    background: var(--bg-white, #FFF);
+    background: var(--white);
     display: flex;
     width: 600px;
     padding: 24px;
@@ -24,20 +24,9 @@
 .popup-container .close-button {
     cursor: pointer;
     border: none;
-    background-color: white;
+    background-color: var(--white);
     font-size: 18px;
     float: right;
-}
-
-.popup-button {
-    font-weight: 700;
-    font-size: 20px;
-    padding: 12px 24px;
-    border-radius: 12px;
-    margin: 12px 0px;
-    color: white;
-    background-color: var(--primary);
-    border: 0px;
 }
 
 .modal-body {
@@ -46,7 +35,7 @@
     padding: 24px;
     gap: 72px;
     border-radius: 24px;
-    border: 1px solid var(--Border, #AFAFAF);
+    border: 1px solid var(--Border, var(--popup));
     width: 550px;
     color: #717171;
     font-family: Inter;
@@ -59,7 +48,7 @@
     border-radius: 12px;
     margin-top: 24px;
     margin-bottom: auto;
-    color: white;
+    color: var(--white);
     background-color: var(--primary);
     border: 0px;
     float: right;
