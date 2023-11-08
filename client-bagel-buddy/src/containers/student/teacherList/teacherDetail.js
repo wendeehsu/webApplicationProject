@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { getUser, getUserTimeslot } from "../../../api/user";
+import { createLesson } from "../../../api/lesson";
 import './teacherDetail.css';
 import PopUp from "../../../components/popup";
 
@@ -62,6 +63,15 @@ function TeacherDetailPage() {
         }]);
     }, []);
 
+    const bookLesson = (text) => {
+        createLesson(id, selectedTime, text).then((res) => {
+            if (res.success) {
+                alert("request sent! Wait for the teacher to confirm :D");
+            } else {
+                alert(res.message);
+            }
+        })
+    }
 
     return (
         <div className='page'>
@@ -181,6 +191,7 @@ function TeacherDetailPage() {
                         <PopUp
                             id={1}
                             text="Book Lesson"
+                            action={bookLesson}
                             content="Let the teacher know why you want to book with them..."
                             buttonLabel="Confirm"
                             popUpLabel="Send a Message" />
