@@ -2,64 +2,57 @@ import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
 import PopUp from "../../../../components/popup";
 import "../index.css";
+import { getPendingLesson } from "../../../../api/lesson.js";
 
 function PendingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
-    const user_img_url = "../../images/user";
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     useEffect(() => {
-        setLessonList([{
-            id: 1,
-            name: "Devon Lane",
-            nationality: "English",
-            timeSlot: "Sep 20, Wed, 20:00 - 20:30",
-            content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
-            meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "6.png"
-        }, {
-            id: 2,
-            name: "Arlene McCoy",
-            nationality: "Portugese",
-            timeSlot: "Sep 20, Wed, 20:00 - 20:30",
-            content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
-            meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "5.png"
-        }, {
-            id: 3,
-            name: "Cody Fisher",
-            nationality: "Portugese",
-            timeSlot: "Sep 20, Wed, 20:00 - 20:30",
-            content: "Hi, I want to practice speaking about topics like introducing Japanese culture, travel, and current events. I'm also happy to talk about anything else that you're interested in.",
-            meetLink: "https://meet.google.com/zzw-cqtw-nkt",
-            imgUrl: user_img_url + "8.png"
-        }])
+        getPendingLesson().then(
+            (res) => {
+                if (res.success) {
+                    let data = res.data.map((lesson) => {
+                        lesson.lesson.timeslotStart = new Date(lesson.lesson.timeslotStart)
+                            .toLocaleString("en-US", { timeZone: "America/Chicago" });
+                        return lesson;
+                    });
+                    setLessonList(data);
+                } else {
+                    alert(res.message);
+                }
+            }
+        );
     }, []);
 
     return (
         <>
             {
                 lessonList.map((lesson) => (
-                    <div className='lesson-row' key={lesson.id}>
+                    <div className='lesson-row' key={lesson.lesson._id}>
                         <div className='profile-img'
-                            style={{ backgroundImage: `url(${lesson.imgUrl})` }} />
+                            style={{ backgroundImage: `url('../../images/${lesson.teacher.img_url}')` }} />
                         <div className='lesson-content'>
                             <div className='content-title'>
                                 <div className='title-text'>
-                                    <h2>{lesson.name}</h2>
-                                    <p>{lesson.nationality}</p>
+                                    <h2>{lesson.teacher.name}</h2>
+                                    <p>{lesson.teacher.native_language}</p>
                                 </div>
                                 <div className='chip'>
-                                    {lesson.timeSlot}
+                                    {lesson.lesson.timeslotStart}
                                 </div>
                             </div>
                             <p className='content-request'>
-                                {lesson.content}
+                                {lesson.lesson.note}
                             </p>
 
 
                             <div className='button-section'>
-                                <PopUp id={1} text="Cancel" content = "Let your teacher know why you cancelled..." buttonLabel = "Cancel Lesson" popUpLabel = "Send a Message"/>
+                                <PopUp
+                                    id={1}
+                                    text="Cancel"
+                                    content="Let your teacher know why you cancelled..."
+                                    buttonLabel="Cancel Lesson"
+                                    popUpLabel="Send a Message" />
                             </div>
 
                         </div>
