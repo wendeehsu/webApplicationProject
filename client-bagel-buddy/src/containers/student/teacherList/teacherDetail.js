@@ -15,8 +15,8 @@ function TeacherDetailPage() {
 
     const getEndTime = (startTime) => {
         let endTime = new Date(startTime);
-        endTime.setHours(endTime.getHours()+1);
-        return endTime.toLocaleString("en-US", {timeZone: "America/Chicago", hour: '2-digit', hour12: true, minute:'2-digit'});
+        endTime.setHours(endTime.getHours() + 1);
+        return endTime.toLocaleString("en-US", { timeZone: "America/Chicago", hour: '2-digit', hour12: true, minute: '2-digit' });
     }
 
     useEffect(() => {
@@ -31,7 +31,7 @@ function TeacherDetailPage() {
             if (res.success) {
                 let data = res.data.map((i) => {
                     let startTime = new Date(i);
-                    return startTime.toLocaleString("en-US", {timeZone: "America/Chicago", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: true, minute:'2-digit'});
+                    return startTime.toLocaleString("en-US", { timeZone: "America/Chicago", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: true, minute: '2-digit' });
                 })
                 setTimeList(data);
             } else {
@@ -159,9 +159,9 @@ function TeacherDetailPage() {
                     <div className='time-avail-list'>
                         {
                             timeList.length === 0 ? (
-                                    <p>There is no available time to book.</p>
-                                ) : (
-                                    timeList
+                                <p>There is no available time to book.</p>
+                            ) : (
+                                timeList
                                     .map((time, index) => (
                                         <div
                                             key={time}
@@ -169,21 +169,21 @@ function TeacherDetailPage() {
                                             onClick={() => setSelectedTime(time)}>
                                             <p className='skillBox'>{time}</p>
                                         </div>
-                                )))
+                                    )))
                         }
-                        <div className='user-confirm'>
-                            <p className='gray-text'> You selected: </p>
-                            <h2> {selectedTime ? `${selectedTime} ~ ${getEndTime(selectedTime)}` : 'No timeslot selected'} </h2>
-                        </div>
+                    </div>
+                    <div className='user-confirm'>
+                        <p className='gray-text'> You selected: </p>
+                        <h2> {selectedTime ? `${selectedTime} ~ ${getEndTime(selectedTime)}` : 'No timeslot selected'} </h2>
                     </div>
 
                     <div className='book-button'>
-                                <PopUp
-                                    id={1}
-                                    text="Book Lesson"
-                                    content = "Let the teacher know why you want to book with them..."
-                                    buttonLabel="Confirm"
-                                    popUpLabel="Send a Message" />
+                        <PopUp
+                            id={1}
+                            text="Book Lesson"
+                            content="Let the teacher know why you want to book with them..."
+                            buttonLabel="Confirm"
+                            popUpLabel="Send a Message" />
                     </div>
 
                 </div>
