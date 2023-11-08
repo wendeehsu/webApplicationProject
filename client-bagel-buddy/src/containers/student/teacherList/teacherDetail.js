@@ -189,7 +189,6 @@ function TeacherDetailPage() {
 
                     <div className='book-button'>
                         <PopUp
-                            id={1}
                             text="Book Lesson"
                             action={bookLesson}
                             content="Let the teacher know why you want to book with them..."

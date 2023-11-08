@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
 import { getUpcomingLesson } from '../../../../api/lesson';
+import PopUp from '../../../../components/popup';
 
 function UpcomingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
+    
+    const cancelLesson = (text) => {
+        // TODO: cancel a lesson
+        console.log("cancel this lesson because:", text);
+    }
 
     useEffect(() => {
         getUpcomingLesson()
@@ -49,10 +55,13 @@ function UpcomingLessonPage() {
                                         text="Join Meet"
                                         onClick={() => window.open(lesson.lesson.meetLink, "_blank")}
                                     />
-                                    <SecondaryButton
+                                    <PopUp
                                         text="Cancel"
-                                        onClick={() => console.log("Cancel")}
-                                    />
+                                        styleName="secondary"
+                                        action={cancelLesson}
+                                        content="Let your student know why you canceled..."
+                                        buttonLabel="Cancel Lesson"
+                                        popUpLabel="Send a Message" />
                                 </div>
                             </div>
                         </div>

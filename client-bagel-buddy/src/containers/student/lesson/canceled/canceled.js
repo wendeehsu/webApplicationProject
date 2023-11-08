@@ -6,7 +6,11 @@ import "../index.css";
 function CanceledLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    
+    const cancelLesson = (text) => {
+        // TODO: cancel a lesson
+        console.log("cancel this lesson because:", text);
+    }
 
     useEffect(() => {
         setLessonList([{
@@ -59,7 +63,6 @@ function CanceledLessonPage() {
 
                             <div className='button-section'>
                                 <PopUp
-                                    id={1}
                                     text="View Cancellation Message"
                                     isEditMode={false}
                                     content="Sorry for cancelling. I am busy this weekend."
