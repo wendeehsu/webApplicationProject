@@ -81,6 +81,7 @@ function HistoryLessonPage() {
                                             <PopUp
                                                 id={1}
                                                 text="View Review"
+                                                styleName="secondary"
                                                 isEditMode={false}
                                                 content="I had a great time in my lesson, learned a lot of new conversation skills. "
                                                 buttonLabel="Done"
