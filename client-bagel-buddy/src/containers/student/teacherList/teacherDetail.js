@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from "../../../api/user";
 import './teacherDetail.css';
 import PopUp from "../../../components/popup";
-
 
 function TeacherDetailPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [reviewList, setReviewList] = useState([]);
-    const skills = [2, 0]
-    const times = ["Sept 20, Wed, 10:00 - 10:30", "Sept 20, Wed, 12:00 - 12:30", "Sept 20, Wed, 14:30 - 15:00", "Sept 21, Thu, 9:00 - 9:30", "Sept 21, Thu, 16:00 - 16:30", "Sept 22, Fri, 10:30 - 11:00"]
+    const [user, setUser] = useState(undefined);
     const timeList = [
         { text: "Sept 20, Wed, 10:00 - 10:30", selected: false, value: 10 },
         { text: "Sept 20, Wed, 12:00 - 12:30", selected: false, value: 11 },
@@ -24,7 +23,6 @@ function TeacherDetailPage() {
     const selectedTime = selectedTimes.find(time => time.selected);
 
     const updateTime = (index) => {
-
         const updatedTimes = selectedTimes.map((time, i) => {
             return {
                 ...time,
@@ -36,6 +34,14 @@ function TeacherDetailPage() {
 
 
     useEffect(() => {
+        // get user
+        getUser(id).then((res) => {
+            if (res.success) {
+                setUser(res.data);
+            } else {
+                alert(res.message);
+            }
+        });
         setReviewList([{
             id: 1,
             name: "Jacob Jones",
@@ -57,7 +63,7 @@ function TeacherDetailPage() {
             imgUrl: "3",
             star: 0,
             comment: "I don't like this teacher"
-        }])
+        }]);
     }, []);
 
 
@@ -74,13 +80,13 @@ function TeacherDetailPage() {
             <div className='teacher-info'>
                 <img
                     className='teacher-img'
-                    src='../../../images/user1.png' />
+                    src={`../../../images/${user ? user.img_url : "user1.png"}`} />
                 <div className='star-chunk'>
-                    <h1 className='teacher-name'> Alysa Yang</h1>
-                    <p className='teacher-lang'> Spanish </p>
+                    <h1 className='teacher-name'>{user ? user.name : ''}</h1>
+                    <p className='teacher-lang'>{user ? user.native_language : ''} </p>
                     <div className='starList'>
                         {
-                            Array.from({ length: 5 }) /*not a number before*/
+                            Array.from({ length: user ? user.points : 0 })
                                 .map((item, index) => (
                                     <img
                                         key={`star-${index}`}
@@ -92,8 +98,8 @@ function TeacherDetailPage() {
 
                     <div className='skill-list'>
                         {
-                            ["Writing", "Reading", "Speaking", "Grammar"]
-                                .filter((skill, index) => skills.includes(index))
+                            ["speaking", "writing", "reading", "listening"]
+                                .filter((skill, index) => user !== undefined && user.skills.map(i => i.skill).includes(index))
                                 .map((skill, index) => (
                                     <div className='skill-chip' key={`skill-${index}`}>
                                         <p className='skillBox'>{skill}</p>
@@ -104,7 +110,9 @@ function TeacherDetailPage() {
                 </div>
 
                 <div className='teacher-text'>
-                    <p> Hello, I'm thrilled to introduce myself as your child's teacher for this academic year. My name is Alysa Yang, and I am truly excited to embark on this educational journey with your child and you. Education is a partnership between teachers, students, and parents, and I believe in open communication and collaboration to ensure the best possible learning experience for your child.</p>
+                    <p> {user && user.bio ? user.bio :
+                        `Hello, I'm thrilled to introduce myself as your child's teacher for this academic year. My name is ${user ? user.name : ''}, and I am truly excited to embark on this educational journey with your child and you. Education is a partnership between teachers, students, and parents, and I believe in open communication and collaboration to ensure the best possible learning experience for your child.`}
+                    </p>
                 </div>
 
             </div>

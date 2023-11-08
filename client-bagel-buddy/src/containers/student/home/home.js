@@ -12,7 +12,7 @@ function HomePage() {
         getAllTeachers().then((res) => {
             if (res.success) {
                 let { data } = res;
-                data = data.filter((d, i) => i < 4);
+                data = data.filter((d, i) => d.points >= 3);
                 setTeacherList(data);
             } else {
                 setTeacherList([]);
