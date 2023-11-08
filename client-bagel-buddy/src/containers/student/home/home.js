@@ -12,7 +12,7 @@ function HomePage() {
                 </div>
 
                 {/* TODO: add class in the css file if you want to style the image */}
-                <img className='Home Section' src='../../images/home_section.png' alt="decoration" />
+                <img src='../../images/home_section.png' alt="decoration" />
             </div>
 
             <h1>
