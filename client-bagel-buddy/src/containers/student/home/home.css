@@ -1,7 +1,10 @@
 .home-point-earn-section {
     /* TODO: add correct background-color in index.css */
-    background-color: var(--card-border-color);
+    background-color: var(--accent-color);
+    padding: 36px 40px;
     display: flex;
+    border-radius: 20px;
+    align-items: flex-start;
 }
 
 .home-text-section {
