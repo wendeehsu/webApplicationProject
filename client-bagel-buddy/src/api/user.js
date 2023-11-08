@@ -64,6 +64,15 @@ export const getUser = async (id) => {
     };
 }
 
+export const getUserTimeslot = async (id) => {
+    try {
+        let { data } = await agent.get(`/user/${id}/timeslot`);
+        return { success: true, data: data.data };
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}
+
 export const getAllTeachers = async () => {
     try {
         let { data } = await agent.get(`/user?type=1`);

@@ -137,33 +137,15 @@
 }
 
 .time-chip {
-    color: var(--main-text-color);
-    background-color: var(--accent-color);
-    padding: 4px 12px;
-    font-size: 16px;
-    border-radius: 48px;
-    margin-top: 10px;
     margin-bottom: 20px;
     width: 220px;
     margin-left: 20px;
     margin-right: 20px;
+    text-align: center;
 }
 
-#selection {
+.gray-text {
     color: var(--gray);
-}
-
-.selected {
-    background-color: var(--primary);
-    color: white;
-}
-
-.selected>p {
-    color: white;
-}
-
-.selectable-chip:hover {
-    cursor: pointer;
 }
 
 .user-confirm {

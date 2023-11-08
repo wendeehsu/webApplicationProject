@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from "../../../api/user";
+import { getUser, getUserTimeslot } from "../../../api/user";
 import './teacherDetail.css';
 import PopUp from "../../../components/popup";
 
@@ -10,34 +10,30 @@ function TeacherDetailPage() {
     const navigate = useNavigate();
     const [reviewList, setReviewList] = useState([]);
     const [user, setUser] = useState(undefined);
-    const timeList = [
-        { text: "Sept 20, Wed, 10:00 - 10:30", selected: false, value: 10 },
-        { text: "Sept 20, Wed, 12:00 - 12:30", selected: false, value: 11 },
-        { text: "Sept 20, Wed, 14:30 - 15:00", selected: false, value: 20 },
-        { text: "Sept 21, Thu, 9:00 - 9:30", selected: false, value: 21 },
-        { text: "Sept 21, Thu, 16:00 - 16:30", selected: false, value: 30 },
-        { text: "Sept 22, Fri, 10:30 - 11:00", selected: false, value: 31 },
-    ];
-    const [selectedTimes, setSelectedTimes] = useState(timeList);
+    const [selectedTime, setSelectedTime] = useState(undefined);
+    const [timeList, setTimeList] = useState([]);
 
-    const selectedTime = selectedTimes.find(time => time.selected);
-
-    const updateTime = (index) => {
-        const updatedTimes = selectedTimes.map((time, i) => {
-            return {
-                ...time,
-                selected: i === index,
-            };
-        });
-        setSelectedTimes(updatedTimes);
+    const getEndTime = (startTime) => {
+        let endTime = new Date(startTime);
+        endTime.setHours(endTime.getHours()+1);
+        return endTime.toLocaleString("en-US", {timeZone: "America/Chicago", hour: '2-digit', hour12: true, minute:'2-digit'});
     }
 
-
     useEffect(() => {
-        // get user
         getUser(id).then((res) => {
             if (res.success) {
                 setUser(res.data);
+            } else {
+                alert(res.message);
+            }
+        });
+        getUserTimeslot(id).then((res) => {
+            if (res.success) {
+                let data = res.data.map((i) => {
+                    let startTime = new Date(i);
+                    return startTime.toLocaleString("en-US", {timeZone: "America/Chicago", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', hour12: true, minute:'2-digit'});
+                })
+                setTimeList(data);
             } else {
                 alert(res.message);
             }
@@ -162,19 +158,22 @@ function TeacherDetailPage() {
 
                     <div className='time-avail-list'>
                         {
-                            selectedTimes
-                                .map((time, index) => (
-                                    <div
-                                        key={time.value}
-                                        className={`time-chip selectable-chip ${time.selected ? 'selected' : ''}`}
-                                        onClick={() => updateTime(index)}>
-                                        <p className='skillBox'>{time.text}</p>
-                                    </div>
-                                ))
+                            timeList.length === 0 ? (
+                                    <p>There is no available time to book.</p>
+                                ) : (
+                                    timeList
+                                    .map((time, index) => (
+                                        <div
+                                            key={time}
+                                            className={`skill-chip time-chip selectable-chip ${time === selectedTime ? 'selected' : ''}`}
+                                            onClick={() => setSelectedTime(time)}>
+                                            <p className='skillBox'>{time}</p>
+                                        </div>
+                                )))
                         }
                         <div className='user-confirm'>
-                            <p id='selection'> You selected: </p>
-                            <h2> {selectedTime ? selectedTime.text : 'No timeslot selected'} </h2>
+                            <p className='gray-text'> You selected: </p>
+                            <h2> {selectedTime ? `${selectedTime} ~ ${getEndTime(selectedTime)}` : 'No timeslot selected'} </h2>
                         </div>
                     </div>
 
