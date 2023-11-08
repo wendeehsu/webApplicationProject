@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
 import PopUp from "../../../../components/popup";
 
-function TCanceledLessonPage() {
+function CanceledLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -74,4 +74,4 @@ function TCanceledLessonPage() {
 
 }
 
-export default TCanceledLessonPage;
+export default CanceledLessonPage;
