@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PopUp from "../../../../components/popup";
+import { MainButton } from "../../../../components/button";
 import { getPendingLesson } from "../../../../api/lesson.js";
 
 function PendingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
+    const cancelLesson = (text) => {
+        // TODO: cancel a lesson
+        console.log("cancel this lesson because:", text);
+    }
+
+    const confirmLesson = () => {
+        // TODO: confirm a lesson
+        console.log("confirm this lesson");
+        // TODO: refetch this page
+    }
 
     useEffect(() => {
+        console.log("fetch");
         getPendingLesson().then(
             (res) => {
                 if (res.success) {
@@ -48,14 +60,19 @@ function PendingLessonPage() {
 
 
                                 <div className='button-section'>
+                                    <MainButton
+                                        text="Confirm"
+                                        onClick={confirmLesson}
+                                    />
                                     <PopUp
                                         id={1}
                                         text="Cancel"
+                                        styleName="secondary"
+                                        action={cancelLesson}
                                         content="Let your student know why you canceled..."
                                         buttonLabel="Cancel Lesson"
                                         popUpLabel="Send a Message" />
                                 </div>
-
                             </div>
                         </div>
                     )))

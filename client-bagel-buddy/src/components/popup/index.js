@@ -3,22 +3,23 @@ import './index.css';
 
 function PopUp({
     id,
+    styleName="main",
     text,
     content,
     buttonLabel,
-    popUpLabel
+    popUpLabel,
+    action
 }) {
     // create state `open` with default as false
     const [open, setOpen] = useState(false);
-    const [textcancel, setCancel] = useState("");
-    const [cancelMessage, submitMessage] = useState("")
+    const [cancelMessage, setCancelMessage] = useState("");
 
     return (
         <>
             {/* click of button toggles `open` value therefore visibility */}
             <button
-                className='main btn'
-                onClick={() => setOpen(!open)} s
+                className={`${styleName} btn`}
+                onClick={() => setOpen(!open)}
                 data-toggle="modal"
                 data-target={`#${id}`}
             >
@@ -42,7 +43,7 @@ function PopUp({
                                 aria-label="Close"
                                 onClick={() => setOpen(false)}
                             >
-                                <span aria-hidden="true">X</span>
+                                <span aria-hidden="true">&#x2716;</span>
                             </button>
                             <div className="modal-header">
                                 <h1 className="modal-title">
@@ -52,12 +53,16 @@ function PopUp({
                             <textarea
                                 className='modal-body'
                                 type='text'
-                                value={textcancel}
+                                value={cancelMessage}
                                 placeholder={content}
-                                onInput={(e) => setCancel(e.target.value)} />
+                                onInput={(e) => setCancelMessage(e.target.value)} />
                             <input className="submit-button" type="button" value={buttonLabel}
-                                /* TODO: Include backend for submitting cancellation message */
-                                onClick={() => setOpen(false)} />
+                                onClick={() => {
+                                    action(cancelMessage);
+                                    setOpen(false);
+                                    setCancelMessage("");
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
