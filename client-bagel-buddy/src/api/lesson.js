@@ -49,3 +49,18 @@ export const createLesson = async (teacherId, timeslotStart, note = "") => {
         return { success: false, message: error.message };
     };
 }
+
+export const confirmLesson = async (id) => {
+    try {
+        let token = getToken();
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        let { data } = await agent.patch(`/lesson/${id}/confirm`, null, config);
+        return { success: true, data: data.data };
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}
