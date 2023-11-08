@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PopUp from "../../../../components/popup";
 import { MainButton } from "../../../../components/button";
-import { getPendingLesson } from "../../../../api/lesson.js";
+import { getPendingLesson, confirmLesson } from "../../../../api/lesson.js";
 
 function PendingLessonPage() {
     const [lessonList, setLessonList] = useState([]);
@@ -10,14 +10,18 @@ function PendingLessonPage() {
         console.log("cancel this lesson because:", text);
     }
 
-    const confirmLesson = () => {
-        // TODO: confirm a lesson
-        console.log("confirm this lesson");
-        // TODO: refetch this page
+    const approveLesson = (id) => {
+        confirmLesson(id).then((res) => {
+            if (res.success) {
+                let data = lessonList.filter((lesson) => lesson.lesson._id !== id);
+                setLessonList(data);
+            } else {
+                alert(res.message);
+            }
+        })
     }
 
     useEffect(() => {
-        console.log("fetch");
         getPendingLesson().then(
             (res) => {
                 if (res.success) {
@@ -62,7 +66,7 @@ function PendingLessonPage() {
                                 <div className='button-section'>
                                     <MainButton
                                         text="Confirm"
-                                        onClick={confirmLesson}
+                                        onClick={() => approveLesson(lesson.lesson._id)}
                                     />
                                     <PopUp
                                         id={1}
