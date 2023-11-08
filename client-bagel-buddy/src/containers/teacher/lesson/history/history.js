@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
+import PopUp from "../../../../components/popup";
 
 function HistoryLessonPage() {
     const [lessonList, setLessonList] = useState([]);
@@ -76,12 +77,14 @@ function HistoryLessonPage() {
                                                         />
                                                     )
                                                 )
-
                                             }
-                                            <SecondaryButton
-                                                text="View Comment"
-                                                onClick={() => console.log("View Comment")}
-                                            />
+                                            <PopUp
+                                                id={1}
+                                                text="View Review"
+                                                isEditMode={false}
+                                                content="I had a great time in my lesson, learned a lot of new conversation skills. "
+                                                buttonLabel="Done"
+                                                popUpLabel="Message from Leslie Alexander" />
                                         </div>
                                     </>
                                 )
