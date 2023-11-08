@@ -4,6 +4,7 @@ import './index.css';
 function PopUp({
     id,
     styleName="main",
+    isEditMode=true,
     text,
     content,
     buttonLabel,
@@ -50,15 +51,24 @@ function PopUp({
                                     {popUpLabel}
                                 </h1>
                             </div>
-                            <textarea
-                                className='modal-body'
-                                type='text'
-                                value={cancelMessage}
-                                placeholder={content}
-                                onInput={(e) => setCancelMessage(e.target.value)} />
-                            <input className="submit-button" type="button" value={buttonLabel}
+                            { isEditMode ? (
+                                <textarea
+                                    className='modal-body'
+                                    type='text'
+                                    value={cancelMessage}
+                                    placeholder={content}
+                                    onInput={(e) => setCancelMessage(e.target.value)} />
+                            ) : <p>
+                                    {content}
+                                </p>
+                            }
+                            <input
+                                className="btn main submit-button"
+                                type="button" value={buttonLabel}
                                 onClick={() => {
-                                    action(cancelMessage);
+                                    if (isEditMode) {
+                                        action(cancelMessage);
+                                    }
                                     setOpen(false);
                                     setCancelMessage("");
                                 }}
