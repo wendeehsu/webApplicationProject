@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import './teacherDetail.css';
-
+import PopUp from "../../../components/popup";
 
 
 function TeacherDetailPage() {
@@ -152,7 +152,7 @@ function TeacherDetailPage() {
                 <div className='book-section'>
                     <h1>Select a time to book</h1>
 
-                    <div className='skill-list time-list'>
+                    <div className='time-avail-list'>
                         {
                             selectedTimes
                                 .map((time, index) => (
@@ -168,6 +168,15 @@ function TeacherDetailPage() {
                             <p id='selection'> You selected: </p>
                             <h2> {selectedTime ? selectedTime.text : 'No timeslot selected'} </h2>
                         </div>
+                    </div>
+
+                    <div className='book-button'>
+                                <PopUp
+                                    id={1}
+                                    text="Book Lesson"
+                                    content = "Let the teacher know why you want to book with them..."
+                                    buttonLabel="Confirm"
+                                    popUpLabel="Send a Message" />
                     </div>
 
                 </div>
