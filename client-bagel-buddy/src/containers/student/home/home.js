@@ -39,12 +39,12 @@ function HomePage() {
         <div className='page'>
             <div className='home-point-earn-section'>
                 <div className='home-text-section'>
-                    <h1>Section title here</h1>
-                    <p>text text text text text text</p>
+                    <h1>You've earned 40 points!</h1>
+                    <p>Keep working! We'll send you a surprise package once you reach 100 points!</p>
                 </div>
 
                 {/* TODO: add class in the css file if you want to style the image */}
-                <img className='' src='' alt="decoration" />
+                <img src='../../images/home_section.png' alt="decoration" />
             </div>
 
             <h1>
