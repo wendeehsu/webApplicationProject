@@ -27,7 +27,10 @@ function PendingLessonPage() {
     return (
         <>
             {
-                lessonList.map((lesson) => (
+                lessonList.length === 0 ? (
+                    <p>/* There is no pending lesson */</p>
+                ) : (
+                    lessonList.map((lesson) => (
                     <div className='lesson-row' key={lesson.lesson._id}>
                         <div className='profile-img'
                             style={{ backgroundImage: `url('../../images/${lesson.teacher.img_url}')` }} />
@@ -57,7 +60,7 @@ function PendingLessonPage() {
 
                         </div>
                     </div>
-                ))
+                )))
             }
         </>
     )
