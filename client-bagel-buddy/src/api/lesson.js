@@ -15,3 +15,19 @@ export const getUpcomingLesson = async () => {
         return { success: false, message: error.message };
     };
 }
+
+export const getPendingLesson = async () => {
+    try {
+        let token = getToken();
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        let { data } = await agent.get(`/lesson/pending`, config);
+        return { success: true, data: data.data };
+
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}
