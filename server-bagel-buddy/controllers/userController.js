@@ -111,12 +111,10 @@ exports.getUser = async (req, res) => {
         }
         let user = await User.findOne({ _id: userId });
         let skills = undefined;
-        let timeslots = undefined;
         if (user && user._id) {
             skills = await Skill.find({ userId: user._id });
-            timeslots = await Timeslot.find({ userId: user._id });
             user.hash_password = undefined;
-            res.json({ "data": { ...user.toObject(), skills, timeslots } });
+            res.json({ "data": { ...user.toObject(), skills } });
         } else {
             res.status(400).json({ "error": "User does not exist with id:" + userId });
         }
