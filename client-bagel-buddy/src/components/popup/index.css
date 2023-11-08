@@ -42,14 +42,7 @@
 }
 
 .submit-button {
-    font-weight: 700;
-    font-size: 20px;
-    padding: 12px 24px;
-    border-radius: 12px;
     margin-top: 24px;
     margin-bottom: auto;
-    color: var(--white);
-    background-color: var(--primary);
-    border: 0px;
     float: right;
 }

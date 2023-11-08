@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
-//import PopUp from "../../../../components/popup";
+import PopUp from "../../../../components/popup";
 import "../index.css";
 
 function CanceledLessonPage() {
@@ -57,12 +57,16 @@ function CanceledLessonPage() {
                                 {lesson.content}
                             </p>
 
-                            {/*
+                            
                             <div className='button-section'>
-                                <PopUp id={1} text="Cancel" content = "Let your teacher know why you cancelled..." buttonLabel = "Cancel Lesson" popUpLabel = "Send a Message"/>
+                                <PopUp
+                                    id={1}
+                                    text="Cancel"
+                                    isEditMode={false}
+                                    content = "Let your teacher know why you cancelled..."
+                                    buttonLabel = "Cancel Lesson"
+                                    popUpLabel = "Send a Message"/>
                             </div>
-                */}
-
                         </div>
                     </div>
                 ))
