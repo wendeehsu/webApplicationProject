@@ -61,11 +61,11 @@ function CanceledLessonPage() {
                             <div className='button-section'>
                                 <PopUp
                                     id={1}
-                                    text="Cancel"
+                                    text="View Cancellation Message"
                                     isEditMode={false}
-                                    content = "Let your teacher know why you cancelled..."
-                                    buttonLabel = "Cancel Lesson"
-                                    popUpLabel = "Send a Message"/>
+                                    content = "Sorry for cancelling. I am busy this weekend."
+                                    buttonLabel = "Done"
+                                    popUpLabel = "Message from Devon Lane"/>
                             </div>
                         </div>
                     </div>

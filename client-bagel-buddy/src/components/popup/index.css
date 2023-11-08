@@ -46,3 +46,7 @@
     margin-bottom: auto;
     float: right;
 }
+
+.modal-content {
+    width: 600px;
+}
