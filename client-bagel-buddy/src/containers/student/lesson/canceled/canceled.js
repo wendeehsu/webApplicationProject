@@ -64,7 +64,7 @@ function CanceledLessonPage() {
                                     isEditMode={false}
                                     content="Sorry for cancelling. I am busy this weekend."
                                     buttonLabel="Done"
-                                    popUpLabel="Message from Devon Lane" />
+                                    popUpLabel={`Message from ${lesson.name}`} />
                             </div>
                         </div>
                     </div>
