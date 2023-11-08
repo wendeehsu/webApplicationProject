@@ -1,11 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PopUp from "../../../../components/popup";
+import { getPendingLesson } from "../../../../api/lesson.js";
 
-function pendingLessonPage() {
+function PendingLessonPage() {
+    const [lessonList, setLessonList] = useState([]);
+
+    useEffect(() => {
+        getPendingLesson().then(
+            (res) => {
+                if (res.success) {
+                    let data = res.data.map((lesson) => {
+                        lesson.lesson.timeslotStart = new Date(lesson.lesson.timeslotStart)
+                            .toLocaleString("en-US", { timeZone: "America/Chicago" });
+                        return lesson;
+                    });
+                    setLessonList(data);
+                } else {
+                    alert(res.message);
+                }
+            }
+        );
+    }, []);
+
     return (
-        <h1>pending</h1>
-        // TODO: hazel copy the student/pendingPage
-        // but change "lesson.teacher" to "lesson.student"
+        <>
+            {
+                lessonList.length === 0 ? (
+                    <p>/* There is no pending lesson */</p>
+                ) : (
+                    lessonList.map((lesson) => (
+                        <div className='lesson-row' key={lesson.lesson._id}>
+                            <div className='profile-img'
+                                style={{ backgroundImage: `url('../../images/${lesson.student.img_url}')` }} />
+                            <div className='lesson-content'>
+                                <div className='content-title'>
+                                    <div className='title-text'>
+                                        <h2>{lesson.student.name}</h2>
+                                        <p>{lesson.student.native_language}</p>
+                                    </div>
+                                    <div className='chip'>
+                                        {lesson.lesson.timeslotStart}
+                                    </div>
+                                </div>
+                                <p className='content-request'>
+                                    {lesson.lesson.note}
+                                </p>
+
+
+                                <div className='button-section'>
+                                    <PopUp
+                                        id={1}
+                                        text="Cancel"
+                                        content="Let your student know why you canceled..."
+                                        buttonLabel="Cancel Lesson"
+                                        popUpLabel="Send a Message" />
+                                </div>
+
+                            </div>
+                        </div>
+                    )))
+            }
+        </>
     )
+
 }
 
-export default pendingLessonPage;
+export default PendingLessonPage;
