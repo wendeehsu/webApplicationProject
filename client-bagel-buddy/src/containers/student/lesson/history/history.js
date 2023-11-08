@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { MainButton, SecondaryButton } from "../../../../components/button";
+import PopUp from "../../../../components/popup";
 import "../index.css";
 import "./history.css";
 
 function HistoryLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
+
+    const leaveComment = () => {
+        // TODO: leaveComment
+    }
 
     useEffect(() => {
         setLessonList([{
@@ -60,10 +65,12 @@ function HistoryLessonPage() {
                             </p>
                             {
                                 (lesson.star === null) ? (
-                                    <MainButton
+                                    <PopUp
                                         text="Rate Teacher"
-                                        onClick={() => console.log("rate teacher")}
-                                    />
+                                        content="Leave your comment"
+                                        buttonLabel="Confirm"
+                                        action={leaveComment}
+                                        popUpLabel="Rate Teacher" />
                                 ) : (
                                     <>
                                         <div className='star-section'>
@@ -85,10 +92,13 @@ function HistoryLessonPage() {
                                                 )
 
                                             }
-                                            <SecondaryButton
+                                            <PopUp
+                                                styleName="secondary"
                                                 text="View Comment"
-                                                onClick={() => console.log("View Comment")}
-                                            />
+                                                isEditMode={false}
+                                                content="The English teacher in question is an exceptional educator who has left an indelible mark on both my academic and personal growth. Their dedication to fostering a love for literature and language is nothing short of inspiring."
+                                                buttonLabel="Confirm"
+                                                popUpLabel="Comment" />
                                         </div>
                                     </>
                                 )

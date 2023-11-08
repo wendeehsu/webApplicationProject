@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function PopUp({
-    id,
     styleName="main",
     isEditMode=true,
     text,
@@ -22,7 +21,7 @@ function PopUp({
                 className={`${styleName} btn`}
                 onClick={() => setOpen(!open)}
                 data-toggle="modal"
-                data-target={`#${id}`}
+                data-target="#target"
             >
                 {text}
             </button>
@@ -30,7 +29,7 @@ function PopUp({
             {open && (
                 <div
                     className="popup-overlay"
-                    id={id}
+                    id="target"
                     tabIndex="-1"
                     role="dialog"
                     aria-labelledby="exampleModalLabel"

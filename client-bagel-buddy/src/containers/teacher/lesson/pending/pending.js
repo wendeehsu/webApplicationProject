@@ -69,7 +69,6 @@ function PendingLessonPage() {
                                         onClick={() => approveLesson(lesson.lesson._id)}
                                     />
                                     <PopUp
-                                        id={1}
                                         text="Cancel"
                                         styleName="secondary"
                                         action={cancelLesson}
