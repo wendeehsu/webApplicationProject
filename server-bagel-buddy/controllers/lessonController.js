@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Lesson = mongoose.model('lesson');
 const User = mongoose.model('user');
 const Cancel = mongoose.model('cancel');
+const Review = mongoose.model('review');
 const authHandler = require('./authController.js');
 
 const lessonStatus = {
@@ -120,6 +121,48 @@ exports.cancelLesson = async (req, res) => {
         lesson.status = lessonStatus.CANCELED;
         await lesson.save();
         res.json({ "data": lesson });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+exports.rateLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+
+        // check if canceler exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user token. Please check if this person exists.` });
+        }
+
+        // check if lesson exist
+        let lessonId = req.params.id;
+        let lesson = await Lesson.findOne({ _id: lessonId });
+        if (!lesson) {
+            return res.status(401).json({ message: `Lesson with id ${lessonId} does not exist` });
+        } else if (lesson.status !== lessonStatus.CONFIRMED) {
+            return res.status(401).json({ message: `Lesson with id ${lessonId} is not confirmed` });
+        } else if (lesson.studentId !== userId) {
+            return res.status(401).json({ message: `The user is not the student of course ${lessonId}` });
+        }
+
+        let review = await Review.findOne({ lessonId: lessonId });
+        if (review) {
+            return res.status(401).json({ message: `The lesson is already rated` });
+        }
+
+        review = new Review({
+            teacherId: lesson.teacherId,
+            studentId: lesson.studentId,
+            lessonId,
+            star: req.body.star,
+            comment: req.body.comment
+        });
+
+        await review.save();
+        res.json({ "data": review });
     } catch (err) {
         res.status(500).json({ "error": err.message });
     }
