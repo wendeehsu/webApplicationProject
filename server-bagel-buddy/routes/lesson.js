@@ -8,6 +8,9 @@ router.post("/", lessonHandlers.createLesson);
 // confirm lesson
 router.patch("/:id/confirm", lessonHandlers.confirmLesson);
 
+// cancel lesson
+router.patch("/:id/cancel", lessonHandlers.cancelLesson);
+
 // get lesson by type
 router.get("/upcoming", lessonHandlers.getUpcomingLesson);
 router.get("/pending", lessonHandlers.getPendingLesson);
