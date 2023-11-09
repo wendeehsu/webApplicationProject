@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Lesson = mongoose.model('lesson');
 const User = mongoose.model('user');
+const Cancel = mongoose.model('cancel');
 const authHandler = require('./authController.js');
 
 const lessonStatus = {
@@ -75,6 +76,48 @@ exports.confirmLesson = async (req, res) => {
         console.log("student email:", student.email, "teacher email:", teacher.email);
         lesson.meetLink = "https://meet.google.com/oau-uzau-tss";
 
+        await lesson.save();
+        res.json({ "data": lesson });
+    } catch (err) {
+        res.status(500).json({ "error": err.message });
+    }
+}
+
+exports.cancelLesson = async (req, res) => {
+    try {
+        let decode = authHandler.authenticateToken(req);
+        let userId = decode._id;
+
+        // check if canceler exist
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user token. Please check if this person exists.` });
+        }
+
+        // check if lesson exist
+        let lessonId = req.params.id;
+        let lesson = await Lesson.findOne({ _id: lessonId });
+        if (!lesson) {
+            return res.status(401).json({ message: `Lesson with id ${lessonId} does not exist` });
+        } else if (lesson.status === lessonStatus.CANCELED) {
+            return res.status(401).json({ message: `Lesson with id ${lessonId} is already canceled` });
+        } else if (lesson.teacherId !== userId
+            && lesson.studentId !== userId) {
+            return res.status(401).json({ message: `The user is not the teacher or the student of course ${lessonId}` });
+        }
+
+        if (req.body.note === "" || req.body.note == undefined) {
+            throw ({ message: "cancel reason should not be empty."})
+        }
+
+        let cancel = new Cancel({
+            lessonId,
+            cancelerId: userId,
+            note: req.body.note
+        });
+
+        await cancel.save();
+        lesson.status = lessonStatus.CANCELED;
         await lesson.save();
         res.json({ "data": lesson });
     } catch (err) {
