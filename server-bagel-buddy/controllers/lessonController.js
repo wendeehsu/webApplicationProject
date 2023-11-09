@@ -107,7 +107,7 @@ exports.cancelLesson = async (req, res) => {
         }
 
         if (req.body.note === "" || req.body.note == undefined) {
-            throw ({ message: "cancel reason should not be empty."})
+            throw ({ message: "cancel reason should not be empty." })
         }
 
         let cancel = new Cancel({
@@ -218,7 +218,15 @@ exports.getCancelLesson = async (req, res) => {
             });
         }
         let data = await getUserDetailsForLessons(lessons);
-        // TODO: add cancel reason
+        data = await Promise.all(data.map(async (lesson) => {
+            let cancel = await Cancel.findOne({ lessonId: lesson.lesson._id });
+            let canceler = undefined;
+            if (cancel) {
+                canceler = await User.findOne({ _id: cancel.cancelerId });
+                canceler.hash_password = undefined;
+            }
+            return ({ ...lesson, cancel: { canceler, note: cancel.note } });
+        }))
         res.json({ "data": data });
     } catch (err) {
         res.status(500).json({ "error": err.message });
