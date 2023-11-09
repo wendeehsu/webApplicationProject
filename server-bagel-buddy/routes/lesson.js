@@ -11,6 +11,9 @@ router.patch("/:id/confirm", lessonHandlers.confirmLesson);
 // cancel lesson
 router.patch("/:id/cancel", lessonHandlers.cancelLesson);
 
+// rate lesson
+router.post("/:id/review", lessonHandlers.rateLesson);
+
 // get lesson by type
 router.get("/upcoming", lessonHandlers.getUpcomingLesson);
 router.get("/pending", lessonHandlers.getPendingLesson);
