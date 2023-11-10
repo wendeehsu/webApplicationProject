@@ -305,7 +305,10 @@ exports.getHistoryLesson = async (req, res) => {
             });
         }
         let data = await getUserDetailsForLessons(lessons);
-        // TODO: add review
+        data = await Promise.all(data.map(async (lesson) => {
+            let review = await Review.findOne({ lessonId: lesson.lesson._id });
+            return ({ ...lesson, review });
+        }))
         res.json({ "data": data });
     } catch (err) {
         res.status(500).json({ "error": err.message });
