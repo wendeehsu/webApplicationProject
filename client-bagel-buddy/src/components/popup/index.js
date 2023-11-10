@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function PopUp({
-    styleName="main",
-    isEditMode=true,
+    styleName = "main",
+    isEditMode = true,
+    isReview = false,
     text,
     content,
     buttonLabel,
@@ -12,7 +13,8 @@ function PopUp({
 }) {
     // create state `open` with default as false
     const [open, setOpen] = useState(false);
-    const [cancelMessage, setCancelMessage] = useState("");
+    const [message, setMessage] = useState("");
+    const [starNum, setStarNum] = useState(0);
 
     return (
         <>
@@ -50,26 +52,47 @@ function PopUp({
                                     {popUpLabel}
                                 </h1>
                             </div>
-                            { isEditMode ? (
+                            {
+                                (isReview && isEditMode) && (
+                                    <div className='star-section'>
+                                        {
+                                            Array.from({ length: 5 }).map((val, index) =>
+                                                <img
+                                                    key={`star-${index}`}
+                                                    src={`../../images/star${index < starNum ? 'Solid': 'Line'}.png`}
+                                                    alt="star"
+                                                    onClick={() => setStarNum(index+1)}
+                                                />
+                                            )
+                                        }
+                                    </div>
+                                )
+                            }
+                            {isEditMode ? (
                                 <textarea
                                     className='modal-body'
                                     type='text'
-                                    value={cancelMessage}
+                                    value={message}
                                     placeholder={content}
-                                    onInput={(e) => setCancelMessage(e.target.value)} />
+                                    onInput={(e) => setMessage(e.target.value)} />
                             ) : <p>
-                                    {content}
-                                </p>
+                                {content}
+                            </p>
                             }
                             <input
                                 className="btn main submit-button"
                                 type="button" value={buttonLabel}
                                 onClick={() => {
                                     if (isEditMode) {
-                                        action(cancelMessage);
+                                        if (isReview) {
+                                            action(starNum, message);
+                                        } else {
+                                            action(message);
+                                        }
                                     }
                                     setOpen(false);
-                                    setCancelMessage("");
+                                    setMessage("");
+                                    setStarNum(0);
                                 }}
                             />
                         </div>
