@@ -18,6 +18,9 @@ router.patch("/profile", userHandlers.updateProfile);
 // get user's available timeslot
 router.get("/:id/timeslot", userHandlers.getAvailableTimeslots);
 
+// get user's review
+router.get("/:id/review", userHandlers.getReviews);
+
 // Get all teachers
 router.get("*", userHandlers.getTeacherList);
 
