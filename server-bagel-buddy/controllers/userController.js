@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = mongoose.model('user');
 const Skill = mongoose.model('skill');
 const Timeslot = mongoose.model('timeslot');
+const Review = mongoose.model('review');
 const authHandler = require('./authController.js');
 
 /* Ref:
@@ -152,6 +153,28 @@ exports.getAvailableTimeslots = async (req, res) => {
         let data = timeslots.map((t) => t.getTimeList()).flat()
             .map((t) => t.toLocaleString("en-US", { timezone: "GMT-6" }));
         res.json({ "data": data });
+    } catch (err) {
+        res.status(err.status ?? 500).json({ "error": err.message });
+    }
+}
+
+exports.getReviews = async (req, res) => {
+    try {
+        let userId = req.params.id;
+        let user = await User.findOne({ _id: userId });
+        if (!user) {
+            return res.status(401).json({ message: `Invalid user id ${userId}` });
+        }
+
+        let reviews = await Review.find({ teacherId: user._id });
+        reviews = await Promise.all(reviews.map(async (review) => {
+            let student = await User.findOne({ _id: review.studentId });
+            student.hash_password = undefined;
+            review.studentId = undefined;
+            review.teacherId = undefined;
+            return ({ ...review.toObject(), student });
+        }))
+        res.json({ "data": reviews });
     } catch (err) {
         res.status(err.status ?? 500).json({ "error": err.message });
     }
