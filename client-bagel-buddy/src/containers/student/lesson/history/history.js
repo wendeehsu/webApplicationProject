@@ -66,6 +66,8 @@ function HistoryLessonPage() {
                             {
                                 (lesson.star === null) ? (
                                     <PopUp
+                                        isEditMode={true}
+                                        isReview={true}
                                         text="Rate Teacher"
                                         content="Leave your comment"
                                         buttonLabel="Confirm"

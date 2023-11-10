@@ -50,3 +50,19 @@
 .modal-content {
     width: 600px;
 }
+
+.modal-content > .star-section {
+    /* TODO: update style according to figma */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-content > .star-section > img {
+    /* TODO: update style according to figma */
+    width: 30px;
+    height: 28px;
+}
+
+.modal-content > .star-section > img:hover {
+    cursor: pointer;
+}
