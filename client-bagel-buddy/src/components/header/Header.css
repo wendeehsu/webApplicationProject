@@ -81,3 +81,20 @@ p {
     cursor: pointer;
     color: var(--primary);
 }
+
+.profile-teacher-info {
+    display: flex;
+}
+
+.profile-points-earned {
+    /* TODO: update styling */
+    color: var(--primary);
+}
+
+.profile-skill {
+    margin-bottom: 12px;
+}
+
+.profile-modal-body {
+    height: fit-content;
+}
