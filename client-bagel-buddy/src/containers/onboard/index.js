@@ -173,14 +173,19 @@ function Onboard() {
                             </div>
                         </div>
                         <div className='onboard-content'>
-                            <p>Email</p>
+                            <label htmlFor='email'>Email</label>
+                            <br/>
                             <input
+                                id='email'
                                 className='input-box'
                                 type='text'
                                 value={email}
                                 onInput={(e) => setEmail(e.target.value)} />
-                            <p>Password</p>
+                            <br/>
+                            <label htmlFor='password'>Password</label>
+                            <br/>
                             <input
+                                id='password'
                                 className='input-box'
                                 type='password'
                                 value={password}
@@ -227,14 +232,19 @@ function Onboard() {
                                 onClick={updateProfile}
                                 style={{ backgroundImage: `url('../../images/${imgUrl}')` }} />
                             <div className='onboard-content'>
-                                <p>What is your name?</p>
+                                <label htmlFor='name'>What is your name?</label>
+                                <br/>
                                 <input
+                                    id='name'
                                     className='input-box'
                                     type='text'
                                     value={username}
                                     onInput={(e) => { updateProfile(); setUsername(e.target.value) }} />
-                                <p>What is your native language?</p>
+                                <br/>
+                                <label htmlFor='language'>What is your native language?</label>
+                                <br/>
                                 <select
+                                    id='language'
                                     className='language-selection'
                                     value={language}
                                     onChange={(e) => setLanguage(e.target.value)}

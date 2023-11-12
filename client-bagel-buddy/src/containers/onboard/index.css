@@ -43,10 +43,13 @@
     margin-top: 16px;
 }
 
-.onboard-content > p {
+.onboard-content > label {
     font-weight: 500;
     font-size: 16px;
-    margin-top: 32px;
+}
+
+.onboard-content > input, select {
+    margin: 16px 0px;
 }
 
 .horizontal {
