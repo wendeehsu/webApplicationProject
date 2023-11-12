@@ -64,3 +64,19 @@ export const confirmLesson = async (id) => {
         return { success: false, message: error.message };
     };
 }
+
+export const getCancelledLesson = async () => {
+    try {
+        let token = getToken();
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        let { data } = await agent.get(`/lesson/cancel`, config);
+        return { success: true, data: data.data };
+
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}
