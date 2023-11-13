@@ -34,8 +34,8 @@ function CanceledLessonPage() {
                         <div className='lesson-content'>
                             <div className='content-title'>
                                 <div className='title-text'>
-                                    <h2>{lessonObject.cancel.canceler.name}</h2>
-                                    <p>{lessonObject.cancel.canceler.native_language}</p>
+                                    <h2>{lessonObject.student.name}</h2>
+                                    <p>{lessonObject.student.native_language}</p>
                                 </div>
                                 <div className='chip'>
                                     {lessonObject.lesson.timeslotStart}
