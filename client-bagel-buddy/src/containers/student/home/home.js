@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import Card from '../../../components/card';
 import { getAllTeachers } from "../../../api/user";
 import { getUpcomingLesson } from '../../../api/lesson';
@@ -10,8 +9,6 @@ import './home.css';
 function HomePage() {
     const [teacherList, setTeacherList] = useState([]);
     const [lessonList, setLessonList] = useState([]);
-    const location = useLocation();
-    const [navList, setNavList] = useState([]);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -54,8 +51,8 @@ function HomePage() {
         <div className='page'>
             <div className='home-point-earn-section'>
                 <div className='home-text-section'>
-                    <h1>{user ? user.name : ''}, you've earned {user ? user.points : ''} points!</h1>
-                    <p>Keep working! We'll send you a surprise package once you reach 100 points!</p>
+                    <h1>{user ? user.name : ''}, you've earned {user ? user.points : ''} points</h1>
+                    <p>Keep working! We'll send you a surprise package once you reach 100 points.</p>
                 </div>
 
                 {/* TODO: add class in the css file if you want to style the image */}
