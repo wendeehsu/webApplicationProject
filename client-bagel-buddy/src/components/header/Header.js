@@ -56,7 +56,8 @@ function Header() {
                 onClick={() => navigate('/')}>
                 <img
                     className='header-logo'
-                    src='../../../images/logo.png' />
+                    src='../../../images/logo.png'
+                    alt='Bagel buddies logo: Cartoon image of a bagel sandwich' />
                 <p>
                     Bagel Buddies
                 </p>
