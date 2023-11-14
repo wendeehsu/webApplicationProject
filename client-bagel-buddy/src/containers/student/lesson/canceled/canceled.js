@@ -7,7 +7,6 @@ import { getCancelledLesson } from "../../../../api/lesson"
 function CanceledLessonPage() {
     const [lessonList, setLessonList] = useState([]);
     const user_img_url = "../../images/user";
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
 
     useEffect(() => {
         getCancelledLesson()
