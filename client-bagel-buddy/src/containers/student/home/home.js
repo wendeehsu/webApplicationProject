@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Card from '../../../components/card';
 import { getAllTeachers } from "../../../api/user";
 import { getUpcomingLesson } from '../../../api/lesson';
+import { getProfile } from '../../../api/user';
+
 import './home.css';
 
 function HomePage() {
     const [teacherList, setTeacherList] = useState([]);
     const [lessonList, setLessonList] = useState([]);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         getAllTeachers().then((res) => {
@@ -34,13 +37,22 @@ function HomePage() {
                 }
             });
     }, []);
+    useEffect(() => {
+    getProfile()
+            .then((res) => {
+                if (res.success) {
+                    let { data } = res;
+                    setUser(data);
+                }
+            })
+    }, []);
 
     return (
         <div className='page'>
             <div className='home-point-earn-section'>
                 <div className='home-text-section'>
-                    <h1>You've earned 40 points!</h1>
-                    <p>Keep working! We'll send you a surprise package once you reach 100 points!</p>
+                    <h1>{user ? user.name : ''}, you've earned {user ? user.points : ''} points</h1>
+                    <p>Keep working! We'll send you a surprise package once you reach 100 points.</p>
                 </div>
 
                 {/* TODO: add class in the css file if you want to style the image */}
