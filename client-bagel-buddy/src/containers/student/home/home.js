@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Card from '../../../components/card';
 import { getAllTeachers } from "../../../api/user";
 import { getUpcomingLesson } from '../../../api/lesson';
@@ -46,20 +46,9 @@ function HomePage() {
                 if (res.success) {
                     let { data } = res;
                     setUser(data);
-                    if (data.type === 0) {
-                        setNavList([{
-                            text: 'Teachers',
-                            path: '/teachers'
-                        }, {
-                            text: 'Lessons',
-                            path: '/myLessons'
-                        }]);
-                    } else {
-                        setNavList([]);
-                    }
                 }
             })
-    }, [location.pathname]);
+    }, []);
 
     return (
         <div className='page'>
