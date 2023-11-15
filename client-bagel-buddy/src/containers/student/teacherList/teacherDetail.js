@@ -86,7 +86,9 @@ function TeacherDetailPage() {
             <div className='teacher-info'>
                 <img
                     className='teacher-img'
-                    src={`../../../images/${user ? user.img_url : "user1.png"}`} />
+                    src={`../../../images/${user ? user.img_url : "user1.png"}`}
+                    alt="teacher profile" />
+    
                 <div className='star-chunk'>
                     <h1 className='teacher-name'>{user ? user.name : ''}</h1>
                     <p className='teacher-lang'>{user ? user.native_language : ''} </p>
@@ -97,7 +99,8 @@ function TeacherDetailPage() {
                                     <img
                                         key={`star-${index}`}
                                         className='star'
-                                        src="../../images/starSolid.png" />
+                                        src="../../images/starSolid.png"
+                                        alt="star" />
                                 ))
                         }
                     </div>

@@ -39,15 +39,16 @@ function PopUp({
                 >
                     <div className="popup-container" role="document">
                         <div className="modal-content">
-                            <button
+                            <div className="modal-header">
+                                <button
                                 type="button"
                                 className="close-button"
                                 aria-label="Close"
                                 onClick={() => setOpen(false)}
-                            >
-                                <span aria-hidden="true">&#x2716;</span>
-                            </button>
-                            <div className="modal-header">
+                                 >
+                                <img src='../../images/close.png' alt="close" />
+                                {/*<span aria-hidden="true">&#x2716;</span>*/}
+                                </button>
                                 <h1 className="modal-title">
                                     {popUpLabel}
                                 </h1>
