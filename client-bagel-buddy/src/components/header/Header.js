@@ -202,7 +202,7 @@ function Header() {
                                         />
                                         <MainButton
                                             text="Save"
-                                            onclick={updateBio}
+                                            onClick={updateBio}
                                         />
                                     </div> :
                                     <input
