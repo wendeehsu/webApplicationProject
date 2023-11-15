@@ -135,7 +135,8 @@ exports.updateProfile = async (req, res) => {
 
         await user.save();
         user.hash_password = undefined;
-        res.json({ "data": user });
+        let skills = await Skill.find({ userId: user._id });
+        res.json({ "data": { ...user.toObject(), skills } });
     } catch (err) {
         res.status(err.status ?? 500).json({ "error": err.message });
     }
