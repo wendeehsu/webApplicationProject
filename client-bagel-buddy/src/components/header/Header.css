@@ -95,6 +95,9 @@ p {
     margin-bottom: 12px;
 }
 
-.profile-modal-body {
-    height: fit-content;
+#profile-edit-body {
+    height: 150px;
+}
+
+.popup-container {
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { logout, getProfile } from '../../api/user';
+import { logout, getProfile, updateUser } from '../../api/user';
 import { MainButton, SecondaryButton } from '../button'
 import './Header.css';
 
@@ -14,6 +14,7 @@ function Header() {
     const [user, setUser] = useState(null);
     const [open, setOpen] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
+    const [newBio, setNewBio] = useState("");
 
     useEffect(() => {
         if (location.pathname !== "/") return;
@@ -22,6 +23,7 @@ function Header() {
                 if (res.success) {
                     let { data } = res;
                     setUser(data);
+                    setNewBio(data.bio);
                     if (data.type === 0) {
                         setNavList([{
                             text: 'Teachers',
@@ -49,6 +51,17 @@ function Header() {
             setShowDropDown(false);
         }
     };
+
+    const updateBio = () => {
+        updateUser(newBio).then((res) => {
+            if (res.success) {
+                setUser(res.data);
+                setIsEdit(false);
+            } else {
+                alert(res.message);
+            }
+        })
+    }
 
     return (
         <div className={location.pathname == "/login" ? 'hide' : 'header-section'}>
@@ -168,10 +181,11 @@ function Header() {
                                         </h1>
                                         <textarea
                                             className='modal-body profile-modal-body'
+                                            id='profile-edit-body'
                                             type='text'
-                                            value={user.bio}
+                                            value={newBio}
                                             placeholder="introduce yourself!"
-                                            onInput={(e) => console.log(e.target.value)} />
+                                            onInput={(e) => setNewBio(e.target.value)} />
                                     </>
                                     :
                                     <p>
@@ -188,6 +202,7 @@ function Header() {
                                         />
                                         <MainButton
                                             text="Save"
+                                            onClick={updateBio}
                                         />
                                     </div> :
                                     <input
