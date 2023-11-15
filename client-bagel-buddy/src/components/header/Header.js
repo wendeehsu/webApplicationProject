@@ -14,6 +14,7 @@ function Header() {
     const [user, setUser] = useState(null);
     const [open, setOpen] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
+    const [newBio, setNewBio] = useState("");
 
     useEffect(() => {
         if (location.pathname !== "/") return;
@@ -22,6 +23,7 @@ function Header() {
                 if (res.success) {
                     let { data } = res;
                     setUser(data);
+                    setNewBio(user.bio);
                     if (data.type === 0) {
                         setNavList([{
                             text: 'Teachers',
@@ -51,7 +53,7 @@ function Header() {
     };
 
     const updateBio = (text) => {
-        updateUser(text).then((res) => {
+        updateUser(newBio).then((res) => {
             if (res.success) {
                 alert("Your bio has been updated!:D");
             } else {
@@ -178,7 +180,7 @@ function Header() {
                                         </h1>
                                         <textarea
                                             className='modal-body profile-modal-body'
-                                            id = 'profile-edit-body'
+                                            id='profile-edit-body'
                                             type='text'
                                             value={user.bio}
                                             placeholder="introduce yourself!"
@@ -199,7 +201,8 @@ function Header() {
                                         />
                                         <MainButton
                                             text="Save"
-                                            onClick={(e) => updateBio(e.target.value)}
+                                            value={newBio}
+                                            onInput={(e) => setNewBio(e.target.value)}
                                         />
                                     </div> :
                                     <input
