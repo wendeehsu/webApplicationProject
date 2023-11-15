@@ -94,7 +94,7 @@ export const updateUser = async (bio) => {
                 'Authorization': `Bearer ${token}`,
             },
         };
-        let { data } = await agent.post(`user/profile`, {
+        let { data } = await agent.patch(`user/profile`, {
             bio
         }, config);
         return { success: true, data: data.data };

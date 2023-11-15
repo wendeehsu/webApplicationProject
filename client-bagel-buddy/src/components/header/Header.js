@@ -23,7 +23,7 @@ function Header() {
                 if (res.success) {
                     let { data } = res;
                     setUser(data);
-                    setNewBio(user.bio);
+                    setNewBio(data.bio);
                     if (data.type === 0) {
                         setNavList([{
                             text: 'Teachers',
@@ -52,10 +52,11 @@ function Header() {
         }
     };
 
-    const updateBio = (text) => {
+    const updateBio = () => {
         updateUser(newBio).then((res) => {
             if (res.success) {
-                alert("Your bio has been updated!:D");
+                setUser(res.data);
+                setIsEdit(false);
             } else {
                 alert(res.message);
             }
@@ -182,9 +183,9 @@ function Header() {
                                             className='modal-body profile-modal-body'
                                             id='profile-edit-body'
                                             type='text'
-                                            value={user.bio}
+                                            value={newBio}
                                             placeholder="introduce yourself!"
-                                            onInput={(e) => console.log(e.target.value)} />
+                                            onInput={(e) => setNewBio(e.target.value)} />
                                     </>
                                     :
                                     <p>
@@ -201,8 +202,7 @@ function Header() {
                                         />
                                         <MainButton
                                             text="Save"
-                                            value={newBio}
-                                            onInput={(e) => setNewBio(e.target.value)}
+                                            onclick={updateBio}
                                         />
                                     </div> :
                                     <input
