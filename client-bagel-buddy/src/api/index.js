@@ -1,7 +1,16 @@
 import axios from "axios";
 
+const getBaseUrl = () => {
+    let url = "http://localhost:8080/api";
+    if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'development') {
+        url = "https://bagelbuddy-backend.vercel.app/api";
+    }
+    console.log("process.env.NODE_ENV ->", process.env.NODE_ENV);
+    return url;
+}
+
 export const agent = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: getBaseUrl(),
 });
 
 export const setToken = (token) => {
