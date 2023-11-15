@@ -85,3 +85,21 @@ export const getAllTeachers = async () => {
 export const logout = () => {
     resetToken();
 }
+
+export const updateUser = async (bio) => {
+    try {
+        let token = getToken();
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+        let { data } = await agent.post(`user/profile`, {
+            bio
+        }, config);
+        return { success: true, data: data.data };
+
+    } catch (error) {
+        return { success: false, message: error.message };
+    };
+}

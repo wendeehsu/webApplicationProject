@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { logout, getProfile } from '../../api/user';
+import { logout, getProfile, updateUser } from '../../api/user';
 import { MainButton, SecondaryButton } from '../button'
 import './Header.css';
 
@@ -49,6 +49,16 @@ function Header() {
             setShowDropDown(false);
         }
     };
+
+    const updateBio = (text) => {
+        updateUser(text).then((res) => {
+            if (res.success) {
+                alert("Your bio has been updated!:D");
+            } else {
+                alert(res.message);
+            }
+        })
+    }
 
     return (
         <div className={location.pathname == "/login" ? 'hide' : 'header-section'}>
@@ -168,6 +178,7 @@ function Header() {
                                         </h1>
                                         <textarea
                                             className='modal-body profile-modal-body'
+                                            id = 'profile-edit-body'
                                             type='text'
                                             value={user.bio}
                                             placeholder="introduce yourself!"
@@ -188,6 +199,7 @@ function Header() {
                                         />
                                         <MainButton
                                             text="Save"
+                                            onClick={(e) => updateBio(e.target.value)}
                                         />
                                     </div> :
                                     <input
