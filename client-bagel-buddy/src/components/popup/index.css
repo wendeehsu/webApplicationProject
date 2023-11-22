@@ -53,13 +53,13 @@
 
 .modal-content > .star-section {
     /* TODO: update style according to figma */
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 .modal-content > .star-section > img {
     /* TODO: update style according to figma */
-    width: 30px;
+    width: 28px;
     height: 28px;
 }
 

@@ -127,7 +127,8 @@ function Header() {
                                 aria-label="Close"
                                 onClick={() => setOpen(false)}
                             >
-                                <span aria-hidden="true">&#x2716;</span>
+                                <img src='../../images/close.png' alt="close" />
+                               {/* <span aria-hidden="true">&#x2716;</span>*/}
                             </button>
                             <div className="modal-header">
                                 <h1 className="modal-title">
