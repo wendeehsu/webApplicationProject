@@ -1,27 +1,16 @@
-const express = require('express');
-const app = express();
-const routes = require("./routes/index");
-const cors = require('cors')
-
+const app = require('./app');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-
-const db_uri = "mongodb+srv://user1:user1@bagel.ga3mauc.mongodb.net/BagelBuddy?retryWrites=true&w=majority";
 const PORT = 8080;
+require("dotenv").config();
 
-const run = async () => {
-    try {
-        await mongoose.connect(db_uri);
-        app.use(cors());
-        app.use(express.json());
-        app.use("/api", routes);
-
+mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => {
         app.listen(PORT, () => {
-            console.log('server started on port ', PORT)
+            console.log("Server started on port ", PORT);
         });
-    } catch (e) {
-        console.log(e.message);
-    }
-};
-
-run();
+    })
+    .catch((err) => {
+        console.log(err);
+    });
