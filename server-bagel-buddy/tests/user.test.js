@@ -1,0 +1,29 @@
+const mongoose = require("mongoose");
+const request = require("supertest");
+const app = require("../app");
+require("dotenv").config();
+
+const base_url = "/api/user";
+
+/* Connecting to the database before each test. */
+beforeEach(async () => {
+  await mongoose.connect(process.env.MONGODB_URI);
+});
+
+/* Closing connection after each test. */
+afterEach(async () => {
+  await mongoose.connection.close();
+});
+
+/* Testing the API endpoints. */
+describe(`POST ${base_url}/auth/login`, () => {
+  it("user1 should login", async () => {
+    const res = await request(app)
+        .post(`${base_url}/auth/login`)
+        .send({
+            email: "user1@gmail.com",
+            password: "user1"
+        });
+    expect(res.statusCode).toBe(200);
+  });
+});
