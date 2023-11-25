@@ -77,7 +77,7 @@ describe(`GET ${base_url}/pending`, () => {
         }
     });
 
-    it("teachers can accept a pending lesson", async () => {
+    it("teachers can accept their own pending lesson", async () => {
         if (courseId === '') return;
         const res = await request(app)
             .patch(`${base_url}/${courseId}/confirm`)
@@ -85,5 +85,14 @@ describe(`GET ${base_url}/pending`, () => {
 
         expect(res.body.data.status).toBe(2);
         expect(res.statusCode).toBe(200);
+    });
+
+    it("teachers cannot accept other teacher's pending lesson", async () => {
+        if (courseId === '') return;
+        const res = await request(app)
+            .patch(`${base_url}/656257b2743b5875897cb832/confirm`)
+            .set('Authorization', `Bearer ${teacherToken}`);
+
+        expect(res.statusCode).toBe(401);
     });
 });
