@@ -13,7 +13,7 @@ test('Nav headers in onboarding', () => {
   expect(headingElement[1]).toHaveTextContent("Log in");
 });
 
-test('user1 can login', () => {
+test('user with correct password can login', () => {
   render(<BrowserRouter><Onboard /></BrowserRouter>);
   const emailElement = screen.getByLabelText(/email/i);
   const passwordElement = screen.getByLabelText(/password/i);
