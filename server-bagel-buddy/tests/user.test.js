@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../app");
+const routes = require("../routes/index");
 require("dotenv").config();
 
 const base_url = "/api/user";
@@ -8,6 +9,7 @@ const base_url = "/api/user";
 /* Connecting to the database before all test. */
 beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI);
+    app.use("/api", routes);
 });
 
 /* Closing connection after each test. */
