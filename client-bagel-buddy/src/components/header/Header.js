@@ -12,7 +12,7 @@ function Header() {
     const [showDropDown, setShowDropDown] = useState(false);
     const [navList, setNavList] = useState([]);
     const [user, setUser] = useState(null);
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [newBio, setNewBio] = useState("");
 
@@ -128,7 +128,6 @@ function Header() {
                                 onClick={() => setOpen(false)}
                             >
                                 <img src='../../images/close.png' alt="close" />
-                               {/* <span aria-hidden="true">&#x2716;</span>*/}
                             </button>
                             <div className="modal-header">
                                 <h1 className="modal-title">
