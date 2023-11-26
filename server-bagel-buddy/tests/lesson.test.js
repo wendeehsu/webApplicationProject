@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../app");
+const routes = require("../routes/index");
 require("dotenv").config();
 
 const base_url = "/api/lesson";
@@ -11,6 +12,7 @@ const teacherId = '65430bdd5f100ff025efbc94';
 /* Connecting to the database before all test. */
 beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI);
+    app.use("/api", routes);
     let studentRes = await request(app)
         .post(`/api/user/auth/login`)
         .send({
