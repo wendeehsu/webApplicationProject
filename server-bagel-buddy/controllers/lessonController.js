@@ -4,6 +4,10 @@ const User = mongoose.model('user');
 const Cancel = mongoose.model('cancel');
 const Review = mongoose.model('review');
 const authHandler = require('./authController.js');
+const fetch = require('node-fetch');
+
+// app script: https://script.google.com/d/1G7A3m1i_UivrwjispPGvTd222HwjcXvmGCFgy8HLB7oKDnfXoq0mxA9U/edit?usp=sharing
+const googleMeetAPILink = "https://script.google.com/macros/s/AKfycbyvhe6BS9Ohyg5XBJ26inDFcMfvXL2glq18hpfnP3WUd4h3xy9hU6SLe3Ravu2jenps/exec";
 
 const lessonStatus = {
     PENDING: 0,
@@ -73,9 +77,22 @@ exports.confirmLesson = async (req, res) => {
         let student = await User.findOne({ _id: lesson.studentId, type: 0 });
 
         lesson.status = lessonStatus.CONFIRMED;
-        // TODO: create meet link
-        console.log("student email:", student.email, "teacher email:", teacher.email);
-        lesson.meetLink = "https://meet.google.com/oau-uzau-tss";
+
+        const response = await fetch(googleMeetAPILink, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                student: student.email,
+                teacher: teacher.email,
+                startTime: lesson.timeslotStart,
+                endTime: lesson.timeslotEnd
+            }),
+        })
+
+        const json = await response.json();        
+        lesson.meetLink = json.link ?? "https://meet.google.com/oau-uzau-tss";
 
         await lesson.save();
         res.json({ "data": lesson });
