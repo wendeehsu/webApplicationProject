@@ -3,7 +3,7 @@ const routes = require("./routes/index");
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const PORT = 8080;
-require("dotenv").config();
+require("dotenv").config({path:__dirname+'/.env'});
 
 mongoose
     .connect(process.env.MONGODB_URI)
