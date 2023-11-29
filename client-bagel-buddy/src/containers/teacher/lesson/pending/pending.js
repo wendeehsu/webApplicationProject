@@ -15,6 +15,7 @@ function PendingLessonPage() {
             if (res.success) {
                 let data = lessonList.filter((lesson) => lesson.lesson._id !== id);
                 setLessonList(data);
+                alert("Lesson Confirmed :)")
             } else {
                 alert(res.message);
             }
