@@ -151,9 +151,8 @@ exports.getAvailableTimeslots = async (req, res) => {
         }
 
         let timeslots = await Timeslot.find({ userId: user._id });
-        let data = timeslots.map((t) => t.getTimeList()).flat()
-            .map((t) => t.toLocaleString("en-US", { timezone: "GMT-6" }));
-        res.json({ "data": data });
+        let data = timeslots.map((t) => t.getTimeList()).flat();
+        res.json({ "data": data.sort() });
     } catch (err) {
         res.status(err.status ?? 500).json({ "error": err.message });
     }
