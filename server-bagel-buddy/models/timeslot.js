@@ -20,7 +20,7 @@ timeslotSchema.methods.getTimeList = function() {
 
     return hours.map((hour) => {
         let d = new Date(nextDate);
-        d.setHours(hour);
+        d.setHours(d.getTimezoneOffset() == 0 ? hour+6 : hour);
         d.setMinutes(0);
         d.setSeconds(0);
         return d;
